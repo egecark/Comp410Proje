@@ -17,7 +17,7 @@ std::vector<mat4> model_views;
 mat4 model_view;
 mat4 model_view_floor;
 mat4  projection;
-vec3 viewer_pos(0.0, 0.0, 1.0);
+
 GLuint program;
 point4 light_position2(-1.0, 0.0, 0.0, 0.0);
 float  material_shininess = 5;
@@ -59,24 +59,30 @@ std::vector<vec3> shapeQuad; //stores the faces of shapeX
 std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
 
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
-float cubeLengthHalf = 0.3;
-float groundLenghtHalf = 10 * cubeLengthHalf;
+GLfloat cubeLengthHalf = 0.3;
+GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
+GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
+GLfloat groundPosY = -cubeStartingPosY;
+
+GLfloat groundTileY[10][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
+
+vec3 viewer_pos(cubeLengthHalf, 0.0, cubeLengthHalf);	//Bu deðiþmeli
 
 point4 vertices[8] = {
-	point4(-0.25, 6.0,  0.25, 1.0),
-	point4(-0.25,  6.6,  0.25, 1.0),
-	point4(0.25,  6.6,  0.25, 1.0),
-	point4(0.25, 6.0,  0.25, 1.0),
-	point4(-0.25, 6.0, -0.25, 1.0),
-	point4(-0.25,  6.6, -0.25, 1.0),
-	point4(0.25,  6.6, -0.25, 1.0),
-	point4(0.25, 6.0, -0.25, 1.0)
+	point4(-cubeLengthHalf, cubeStartingPosY,  cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf, cubeStartingPosY,  cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf, cubeStartingPosY, -cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf, cubeStartingPosY, -cubeLengthHalf, 1.0)
 };
 point4 groundVertices[4] = {
-	point4(-6.0, -6.0, -6.0, 1.0),
-	point4(6.0, -6.0, -6.0, 1.0),
-	point4(6.0, -6.0, 6.0, 1.0),
-	point4(-6.0, -6.0, 6.0, 1.0)
+	point4(-groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
+	point4(groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
+	point4(groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0),
+	point4(-groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0)
 	
 };
 
@@ -129,6 +135,29 @@ floorQuad(int a, int b, int c, int d)
 
 //----------------------------------------------------------------------------
 
+void initGroundTiles()
+{
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			groundTileY[i][j] = groundPosY;
+		}
+	}
+}
+
+GLfloat viewerposToCoordinates(GLfloat viewer_posY)
+{
+	return 6.0 - viewer_posY;
+}
+
+void demolishRow()
+{
+	bool isEqual = false;
+	//if all the entries in groundTileY are equal and not groundPosY, demolish row
+	//row is all squares having the same resting position
+	
+}
+
+
 // generate 12 triangles: 36 vertices and 36 colors
 void
 colorcube()
@@ -141,6 +170,7 @@ colorcube()
 	quad(4, 5, 6, 7);
 	quad(5, 4, 0, 1);
 }
+
 //----------------------------------------------------------------------------
 
 void createNew() {
@@ -159,6 +189,7 @@ init()
 {
 	colorcube();
 	populatePoints();
+	initGroundTiles();
 
 	// Create a vertex array object
 	GLuint vao;
