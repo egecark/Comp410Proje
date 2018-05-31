@@ -9,7 +9,7 @@
 #include <sstream>
 #include <list>
 #include <vector>
-using namespace std;
+using namespace std; 
 
 typedef vec4  color4;
 typedef vec4  point4;
