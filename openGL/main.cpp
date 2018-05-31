@@ -13,6 +13,7 @@ using namespace std;
 
 typedef vec4  color4;
 typedef vec4  point4;
+std::vector<mat4> model_views;
 mat4 model_view;
 mat4 model_view_floor;
 mat4  projection;
@@ -44,15 +45,12 @@ color4 diffuse_product = light_diffuse * material_diffuse;
 color4 specular_product = light_specular * material_specular;
 
 const int NumVertices = 85620;
-const int NumVerticesFloor = 6;
-int mode = 0; //the drawing mode
 int Index = 0;
-int xRotation = 0;
-int yRotation = 0;
+int yGridPosition = 0;
 
 point4 points[NumVertices];
-point4 pointsFloor[NumVerticesFloor];
 color4 colors[NumVertices];
+std::vector<point4> pointsList;
 vec3   normals[NumVertices];
 vec2   texture[NumVertices];
 std::vector<point4> offVertices; //the vector that holds vertices loaded from the .off file
@@ -107,23 +105,23 @@ quad(int a, int b, int c, int d)
 		vec4 v = vertices[c] - vertices[b];
 
 		vec3 normal = normalize(cross(u, v));
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[a]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[b]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[c]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[a]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[c]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[d]; Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[a]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[b]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[c]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[a]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[c]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[d]); Index++;
 }
 
 void
 floorQuad(int a, int b, int c, int d)
 {
-	colors[Index] = main_colour; points[Index] = groundVertices[a]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[b]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[c]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[a]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[c]; Index++; 
-	colors[Index] = main_colour; points[Index] = groundVertices[d]; Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[b]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[d]); Index++;
 }
 
 //----------------------------------------------------------------------------
@@ -142,11 +140,22 @@ colorcube()
 }
 //----------------------------------------------------------------------------
 
+void createNew() {
+
+}
+
+void populatePoints() {
+	for (int i = 0; i < pointsList.size(); i++) {
+		points[i] = pointsList[i];
+	}
+}
+
 // OpenGL initialization
 void
 init()
 {
 	colorcube();
+	populatePoints();
 
 	// Create a vertex array object
 	GLuint vao;
@@ -233,13 +242,12 @@ void
 display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	model_view = (Translate(-viewer_pos) * //modelview of the object
 		RotateX(Theta[Xaxis]) *
 		RotateY(Theta[Yaxis]) *
 		RotateZ(Theta[Zaxis]) *
 		Scale(Beta, Beta, Beta));
-
 
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view);
 	glDrawArrays(GL_TRIANGLES, 6, NumVertices-6);
@@ -386,7 +394,9 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
-	viewer_pos.y += 0.6;
+	if(yGridPosition < 20)
+		viewer_pos.y += 0.6;
+	yGridPosition++;
 	glutPostRedisplay();
 
 	glutTimerFunc(1000, timer, 0);
