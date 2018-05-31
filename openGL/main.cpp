@@ -16,7 +16,7 @@ typedef vec4  point4;
 mat4 model_view;
 mat4 model_view_floor;
 mat4  projection;
-vec3 viewer_pos(0.0, 0.0, 1.0);
+vec3 viewer_pos(0.3, 0.0, 0.3);
 GLuint program;
 point4 light_position2(-1.0, 0.0, 0.0, 0.0);
 float  material_shininess = 5;
@@ -61,21 +61,24 @@ std::vector<vec3> shapeQuad; //stores the faces of shapeX
 std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
 
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
+float cubeLengthHalf = 0.3;
+float groundLenghtHalf = 10 * cubeLengthHalf;
+
 point4 vertices[8] = {
-	point4(-0.25, 6.0,  0.25, 1.0),
-	point4(-0.25,  6.6,  0.25, 1.0),
-	point4(0.25,  6.6,  0.25, 1.0),
-	point4(0.25, 6.0,  0.25, 1.0),
-	point4(-0.25, 6.0, -0.25, 1.0),
-	point4(-0.25,  6.6, -0.25, 1.0),
-	point4(0.25,  6.6, -0.25, 1.0),
-	point4(0.25, 6.0, -0.25, 1.0)
+	point4(-cubeLengthHalf, 6.0,  cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf,  6.0 + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf,  6.0 + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf, 6.0,  cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf, 6.0, -cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf,  6.0 + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf,  6.0 + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf, 6.0, -cubeLengthHalf, 1.0)
 };
 point4 groundVertices[4] = {
-	point4(-6.0, -6.0, -6.0, 1.0),
-	point4(6.0, -6.0, -6.0, 1.0),
-	point4(6.0, -6.0, 6.0, 1.0),
-	point4(-6.0, -6.0, 6.0, 1.0)
+	point4(-groundLenghtHalf, -2 * groundLenghtHalf, -groundLenghtHalf, 1.0),
+	point4(groundLenghtHalf, -2 * groundLenghtHalf, -groundLenghtHalf, 1.0),
+	point4(groundLenghtHalf, -2 * groundLenghtHalf, groundLenghtHalf, 1.0),
+	point4(-groundLenghtHalf, -2 * groundLenghtHalf, groundLenghtHalf, 1.0)
 	
 };
 
@@ -386,7 +389,10 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
-	viewer_pos.y += 0.6;
+	if (viewer_pos.y < 12.0) {
+		viewer_pos.y += 0.6;
+	}
+	
 	glutPostRedisplay();
 
 	glutTimerFunc(1000, timer, 0);
