@@ -9,7 +9,7 @@
 #include <sstream>
 #include <list>
 #include <vector>
-using namespace std; 
+using namespace std;
 
 typedef vec4  color4;
 typedef vec4  point4;
@@ -29,7 +29,7 @@ GLuint type = 1; //type of object
 GLuint textureFlag = 0; //enable texture mapping
 GLuint shading = 1; //illumination model (sorry for the improper naming)
 
-// Initialize shader lighting parameters
+//shader lighting parameters
 point4 light_position(-1.0, 0.0, 0.0, 1.0);
 color4 light_ambient(0.2, 0.2, 0.2, 1.0);
 color4 light_diffuse(1.0, 1.0, 1.0, 1.0);
