@@ -13,10 +13,11 @@ using namespace std;
 
 typedef vec4  color4;
 typedef vec4  point4;
+std::vector<mat4> model_views;
 mat4 model_view;
 mat4 model_view_floor;
 mat4  projection;
-vec3 viewer_pos(0.3, 0.0, 0.3);
+vec3 viewer_pos(0.0, 0.0, 1.0);
 GLuint program;
 point4 light_position2(-1.0, 0.0, 0.0, 0.0);
 float  material_shininess = 5;
@@ -28,7 +29,7 @@ GLuint type = 1; //type of object
 GLuint textureFlag = 0; //enable texture mapping
 GLuint shading = 1; //illumination model (sorry for the improper naming)
 
-// Initialize shader lighting parameters
+//shader lighting parameters
 point4 light_position(-1.0, 0.0, 0.0, 1.0);
 color4 light_ambient(0.2, 0.2, 0.2, 1.0);
 color4 light_diffuse(1.0, 1.0, 1.0, 1.0);
@@ -44,15 +45,12 @@ color4 diffuse_product = light_diffuse * material_diffuse;
 color4 specular_product = light_specular * material_specular;
 
 const int NumVertices = 85620;
-const int NumVerticesFloor = 6;
-int mode = 0; //the drawing mode
 int Index = 0;
-int xRotation = 0;
-int yRotation = 0;
+int yGridPosition = 0;
 
 point4 points[NumVertices];
-point4 pointsFloor[NumVerticesFloor];
 color4 colors[NumVertices];
+std::vector<point4> pointsList;
 vec3   normals[NumVertices];
 vec2   texture[NumVertices];
 std::vector<point4> offVertices; //the vector that holds vertices loaded from the .off file
@@ -65,20 +63,20 @@ float cubeLengthHalf = 0.3;
 float groundLenghtHalf = 10 * cubeLengthHalf;
 
 point4 vertices[8] = {
-	point4(-cubeLengthHalf, 6.0,  cubeLengthHalf, 1.0),
-	point4(-cubeLengthHalf,  6.0 + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf,  6.0 + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf, 6.0,  cubeLengthHalf, 1.0),
-	point4(-cubeLengthHalf, 6.0, -cubeLengthHalf, 1.0),
-	point4(-cubeLengthHalf,  6.0 + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf,  6.0 + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf, 6.0, -cubeLengthHalf, 1.0)
+	point4(-0.25, 6.0,  0.25, 1.0),
+	point4(-0.25,  6.6,  0.25, 1.0),
+	point4(0.25,  6.6,  0.25, 1.0),
+	point4(0.25, 6.0,  0.25, 1.0),
+	point4(-0.25, 6.0, -0.25, 1.0),
+	point4(-0.25,  6.6, -0.25, 1.0),
+	point4(0.25,  6.6, -0.25, 1.0),
+	point4(0.25, 6.0, -0.25, 1.0)
 };
 point4 groundVertices[4] = {
-	point4(-groundLenghtHalf, -2 * groundLenghtHalf, -groundLenghtHalf, 1.0),
-	point4(groundLenghtHalf, -2 * groundLenghtHalf, -groundLenghtHalf, 1.0),
-	point4(groundLenghtHalf, -2 * groundLenghtHalf, groundLenghtHalf, 1.0),
-	point4(-groundLenghtHalf, -2 * groundLenghtHalf, groundLenghtHalf, 1.0)
+	point4(-6.0, -6.0, -6.0, 1.0),
+	point4(6.0, -6.0, -6.0, 1.0),
+	point4(6.0, -6.0, 6.0, 1.0),
+	point4(-6.0, -6.0, 6.0, 1.0)
 	
 };
 
@@ -110,23 +108,23 @@ quad(int a, int b, int c, int d)
 		vec4 v = vertices[c] - vertices[b];
 
 		vec3 normal = normalize(cross(u, v));
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[a]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[b]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[c]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[a]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[c]; Index++;
-		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[d]; Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[a]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[b]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[c]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[a]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[c]); Index++;
+		normals[Index] = normal; colors[Index] = main_colour; pointsList.push_back(vertices[d]); Index++;
 }
 
 void
 floorQuad(int a, int b, int c, int d)
 {
-	colors[Index] = main_colour; points[Index] = groundVertices[a]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[b]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[c]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[a]; Index++;
-	colors[Index] = main_colour; points[Index] = groundVertices[c]; Index++; 
-	colors[Index] = main_colour; points[Index] = groundVertices[d]; Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[b]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = main_colour; pointsList.push_back(groundVertices[d]); Index++;
 }
 
 //----------------------------------------------------------------------------
@@ -145,11 +143,22 @@ colorcube()
 }
 //----------------------------------------------------------------------------
 
+void createNew() {
+
+}
+
+void populatePoints() {
+	for (int i = 0; i < pointsList.size(); i++) {
+		points[i] = pointsList[i];
+	}
+}
+
 // OpenGL initialization
 void
 init()
 {
 	colorcube();
+	populatePoints();
 
 	// Create a vertex array object
 	GLuint vao;
@@ -236,13 +245,12 @@ void
 display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	model_view = (Translate(-viewer_pos) * //modelview of the object
 		RotateX(Theta[Xaxis]) *
 		RotateY(Theta[Yaxis]) *
 		RotateZ(Theta[Zaxis]) *
 		Scale(Beta, Beta, Beta));
-
 
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view);
 	glDrawArrays(GL_TRIANGLES, 6, NumVertices-6);
@@ -389,10 +397,9 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
-	if (viewer_pos.y < 12.0) {
+	if(yGridPosition < 20)
 		viewer_pos.y += 0.6;
-	}
-	
+	yGridPosition++;
 	glutPostRedisplay();
 
 	glutTimerFunc(1000, timer, 0);
