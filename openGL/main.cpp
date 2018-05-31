@@ -14,6 +14,7 @@ using namespace std;
 typedef vec4  color4;
 typedef vec4  point4;
 mat4 model_view;
+mat4 model_view_floor;
 mat4  projection;
 vec3 viewer_pos(0.0, 0.0, 1.0);
 GLuint program;
@@ -42,13 +43,15 @@ color4 ambient_product = light_ambient * material_ambient;
 color4 diffuse_product = light_diffuse * material_diffuse;
 color4 specular_product = light_specular * material_specular;
 
-const int NumVertices = 856200;
+const int NumVertices = 85620;
+const int NumVerticesFloor = 6;
 int mode = 0; //the drawing mode
 int Index = 0;
 int xRotation = 0;
 int yRotation = 0;
 
 point4 points[NumVertices];
+point4 pointsFloor[NumVerticesFloor];
 color4 colors[NumVertices];
 vec3   normals[NumVertices];
 vec2   texture[NumVertices];
@@ -59,19 +62,25 @@ std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
 
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
 point4 vertices[8] = {
-	point4(-0.25, 0.25,  0.25, 1.0),
-	point4(-0.25,  0.75,  0.25, 1.0),
-	point4(0.25,  0.75,  0.25, 1.0),
-	point4(0.25, 0.25,  0.25, 1.0),
-	point4(-0.25, 0.25, -0.25, 1.0),
-	point4(-0.25,  0.75, -0.25, 1.0),
-	point4(0.25,  0.75, -0.25, 1.0),
-	point4(0.25, 0.25, -0.25, 1.0)
+	point4(-0.25, 6.0,  0.25, 1.0),
+	point4(-0.25,  6.6,  0.25, 1.0),
+	point4(0.25,  6.6,  0.25, 1.0),
+	point4(0.25, 6.0,  0.25, 1.0),
+	point4(-0.25, 6.0, -0.25, 1.0),
+	point4(-0.25,  6.6, -0.25, 1.0),
+	point4(0.25,  6.6, -0.25, 1.0),
+	point4(0.25, 6.0, -0.25, 1.0)
+};
+point4 groundVertices[4] = {
+	point4(-6.0, -6.0, -6.0, 1.0),
+	point4(6.0, -6.0, -6.0, 1.0),
+	point4(6.0, -6.0, 6.0, 1.0),
+	point4(-6.0, -6.0, 6.0, 1.0)
+	
 };
 
 
-
-color4 main_colour = color4(0.0, 0.0, 0.0, 1.0);
+color4 main_colour = color4(1.0, 0.0, 0.0, 1.0);
 
 // Array of rotation angles (in degrees) for each coordinate axis
 enum { Xaxis = 0, Yaxis = 1, Zaxis = 2, NumAxes = 3 };
@@ -106,12 +115,24 @@ quad(int a, int b, int c, int d)
 		normals[Index] = normal; colors[Index] = main_colour; points[Index] = vertices[d]; Index++;
 }
 
+void
+floorQuad(int a, int b, int c, int d)
+{
+	colors[Index] = main_colour; points[Index] = groundVertices[a]; Index++;
+	colors[Index] = main_colour; points[Index] = groundVertices[b]; Index++;
+	colors[Index] = main_colour; points[Index] = groundVertices[c]; Index++;
+	colors[Index] = main_colour; points[Index] = groundVertices[a]; Index++;
+	colors[Index] = main_colour; points[Index] = groundVertices[c]; Index++; 
+	colors[Index] = main_colour; points[Index] = groundVertices[d]; Index++;
+}
+
 //----------------------------------------------------------------------------
 
 // generate 12 triangles: 36 vertices and 36 colors
 void
 colorcube()
 {
+	floorQuad(1, 0, 3, 2);
 	quad(1, 0, 3, 2);
 	quad(2, 3, 7, 6);
 	quad(3, 0, 4, 7);
@@ -192,7 +213,7 @@ init()
 
 	if(isOrtho)
 	// Set projection matrix
-		projection = Ortho(-6.0, 6.0, -6.0, 6.0, -6.0, 6.0); // Ortho(): user-defined function in mat.h
+		projection = Ortho(-8.0, 8.0, -8.0, 8.0, -8.0, 8.0); // Ortho(): user-defined function in mat.h
 														 //projection = Perspective( 45.0, 1.0, -1.0, 1.0 );
 	else
 		projection = Perspective(45.0, 1.0, 0.5, 6.0);
@@ -221,7 +242,9 @@ display(void)
 
 
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view);
-	glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+	glDrawArrays(GL_TRIANGLES, 6, NumVertices-6);
+	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view_floor);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glutSwapBuffers();
 
 }
@@ -234,15 +257,15 @@ void reshape(int w, int h)
 
 
 	if (w <= h) {
-		projection = Ortho(-6.0, 6.0, -6.0 * (GLfloat)h / (GLfloat)w,
-			6.0 * (GLfloat)h / (GLfloat)w, -6.0, 6.0);
+		projection = Ortho(-8.0, 8.0, -8.0 * (GLfloat)h / (GLfloat)w,
+			8.0 * (GLfloat)h / (GLfloat)w, -8.0, 8.0);
 		projection = (Scale(1.0, 1.0, 1.0) * //in order to rotate the cube as a whole, instead of rotating all 27 subcubes I rotate the camera
 			RotateX(Theta2[Xaxis]) *
 			RotateY(Theta2[Yaxis]) *
 			RotateZ(Theta2[Zaxis])) *projection;
 	}
-	else  projection = Ortho(-6.0* (GLfloat)w / (GLfloat)h, 6.0 *
-		(GLfloat)w / (GLfloat)h, -6.0, 6.0, -6.0, 6.0);
+	else  projection = Ortho(-8.0* (GLfloat)w / (GLfloat)h, 8.0 *
+		(GLfloat)w / (GLfloat)h, -8.0, 8.0, -8.0, 8.0);
 
 	glUniformMatrix4fv(Projection, 1, GL_TRUE, projection);
 
@@ -346,16 +369,16 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 	switch (key) {
 	case GLUT_KEY_UP:
 
-		viewer_pos.z -= 0.1;
+		viewer_pos.z -= 0.6;
 		break;
 	case GLUT_KEY_DOWN:
-		viewer_pos.z += 0.1;
+		viewer_pos.z += 0.6;
 		break;
 	case GLUT_KEY_RIGHT:
-		viewer_pos.x += 0.1;
+		viewer_pos.x += 0.6;
 		break;
 	case GLUT_KEY_LEFT:
-		viewer_pos.x -= 0.1;
+		viewer_pos.x -= 0.6;
 		break;
 
 	}
@@ -363,7 +386,7 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
-	viewer_pos.y += 0.1;
+	viewer_pos.y += 0.6;
 	glutPostRedisplay();
 
 	glutTimerFunc(1000, timer, 0);
