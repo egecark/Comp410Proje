@@ -428,9 +428,14 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
+	/*
 	if(yGridPosition < 20)
 		viewer_pos.y += 0.6;
 	yGridPosition++;
+	*/
+	if (viewerposToCoordinates(viewer_pos.y) > groundPosY) {
+		viewer_pos.y += 0.6;
+	}
 	glutPostRedisplay();
 
 	glutTimerFunc(1000, timer, 0);
