@@ -14,7 +14,7 @@ using namespace std;
 typedef vec4  color4;
 typedef vec4  point4;
 std::vector<mat4> model_views;
-mat4 model_view;
+
 mat4 model_view_floor;
 mat4  projection;
 vec3 viewer_pos(0.0, 0.0, 1.0);
@@ -28,6 +28,7 @@ bool isOrtho = true; //checks if perspective is orthographic
 GLuint type = 1; //type of object
 GLuint textureFlag = 0; //enable texture mapping
 GLuint shading = 1; //illumination model (sorry for the improper naming)
+int cubeNumber = 0;
 
 // Initialize shader lighting parameters
 point4 light_position(-1.0, 0.0, 0.0, 1.0);
@@ -70,15 +71,16 @@ point4 vertices[8] = {
 	point4(0.25, 6.0, -0.25, 1.0)
 };
 point4 groundVertices[4] = {
-	point4(-6.0, -6.0, -6.0, 1.0),
-	point4(6.0, -6.0, -6.0, 1.0),
-	point4(6.0, -6.0, 6.0, 1.0),
-	point4(-6.0, -6.0, 6.0, 1.0)
+	point4(-3.0, -6.0, -3.0, 1.0),
+	point4(3.0, -6.0, -3.0, 1.0),
+	point4(3.0, -6.0, 3.0, 1.0),
+	point4(-3.0, -6.0, 3.0, 1.0)
 	
 };
 
 
 color4 main_colour = color4(1.0, 0.0, 0.0, 1.0);
+color4 ground_colour = color4(1.0, 0.0, 1.0, 1.0);
 
 // Array of rotation angles (in degrees) for each coordinate axis
 enum { Xaxis = 0, Yaxis = 1, Zaxis = 2, NumAxes = 3 };
@@ -116,12 +118,12 @@ quad(int a, int b, int c, int d)
 void
 floorQuad(int a, int b, int c, int d)
 {
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[b]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[d]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[b]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[d]); Index++;
 }
 
 //----------------------------------------------------------------------------
@@ -130,19 +132,20 @@ floorQuad(int a, int b, int c, int d)
 void
 colorcube()
 {
-	floorQuad(1, 0, 3, 2);
 	quad(1, 0, 3, 2);
 	quad(2, 3, 7, 6);
 	quad(3, 0, 4, 7);
 	quad(6, 5, 1, 2);
 	quad(4, 5, 6, 7);
 	quad(5, 4, 0, 1);
+	cubeNumber++;
+	model_views.push_back((Translate(-viewer_pos) * //modelview of the object
+		RotateX(Theta[Xaxis]) *
+		RotateY(Theta[Yaxis]) *
+		RotateZ(Theta[Zaxis]) *
+		Scale(Beta, Beta, Beta)));
 }
 //----------------------------------------------------------------------------
-
-void createNew() {
-
-}
 
 void populatePoints() {
 	for (int i = 0; i < pointsList.size(); i++) {
@@ -154,9 +157,9 @@ void populatePoints() {
 void
 init()
 {
+	floorQuad(1, 0, 3, 2);
 	colorcube();
 	populatePoints();
-
 	// Create a vertex array object
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -238,19 +241,26 @@ init()
 
 //----------------------------------------------------------------------------
 
+void newBlock() {
+	colorcube();
+	populatePoints();
+}
+
 void
 display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	model_view = (Translate(-viewer_pos) * //modelview of the object
+	model_views[cubeNumber-1] = ((Translate(-viewer_pos) * //modelview of the object
 		RotateX(Theta[Xaxis]) *
 		RotateY(Theta[Yaxis]) *
 		RotateZ(Theta[Zaxis]) *
-		Scale(Beta, Beta, Beta));
+		Scale(Beta, Beta, Beta)));
 
-	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view);
-	glDrawArrays(GL_TRIANGLES, 6, NumVertices-6);
+	for (int i = 0; i < cubeNumber; i++) {
+		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber - 1]);
+		glDrawArrays(GL_TRIANGLES, 6 , 36*(i+1));
+	}
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view_floor);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glutSwapBuffers();
@@ -300,11 +310,8 @@ keyboard(unsigned char key, int x, int y)
 	if (key == 'Q' | key == 'q')
 		exit(0);
 	if (key == 'I' | key == 'i') {// initalizes the values
-		Beta = 1.0;
-		//model_view = Scale(Beta, Beta, Beta) *  RotateX(0) * RotateY(0) * RotateZ(0);
-		Theta[0] = 0;
-		Theta[1] = 0;
-		Theta[2] = 0;
+		//printf("%i\n", ((cubeNumber - 1) * 36));
+		printf("%i\n", cubeNumber);
 	}
 	if (key == 'H' | key == 'h') {
 		printf("To open the menu, right click on anywhere on the window. To turn the object around, use the arrow keys and M and N keys for z-axis rotation. Press z for zooming in and Z for zooming out. To initalize the object, press the I key and to quit the program press the Q key. In order to see a textured object more clearly, turn off the lights from the menu. You can later turn them back on to a light type of your desire.");
@@ -394,12 +401,19 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
-	if(yGridPosition < 20)
+	
+	if (yGridPosition < 20) {
 		viewer_pos.y += 0.6;
-	yGridPosition++;
+		yGridPosition++;
+	}
+	else {
+		viewer_pos.y = 0.0;
+		yGridPosition = 0;
+		newBlock();
+	}
 	glutPostRedisplay();
 
-	glutTimerFunc(1000, timer, 0);
+	glutTimerFunc(100, timer, 0);
 }
 
 
