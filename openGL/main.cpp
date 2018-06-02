@@ -14,7 +14,7 @@ using namespace std;
 typedef vec4  color4;
 typedef vec4  point4;
 std::vector<mat4> model_views;
-mat4 model_view;
+
 mat4 model_view_floor;
 mat4  projection;
 
@@ -28,6 +28,7 @@ bool isOrtho = true; //checks if perspective is orthographic
 GLuint type = 1; //type of object
 GLuint textureFlag = 0; //enable texture mapping
 GLuint shading = 1; //illumination model (sorry for the improper naming)
+int cubeNumber = 0;
 
 //shader lighting parameters
 point4 light_position(-1.0, 0.0, 0.0, 1.0);
@@ -57,7 +58,7 @@ std::vector<point4> offVertices; //the vector that holds vertices loaded from th
 std::vector<vec3> shapeNormal; //stores the normals of the shapeX
 std::vector<vec3> shapeQuad; //stores the faces of shapeX
 std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
-
+std::vector<vec3> movePos;
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
 GLfloat cubeLengthHalf = 0.3;
 GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
@@ -82,12 +83,12 @@ point4 groundVertices[4] = {
 	point4(-groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
 	point4(groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
 	point4(groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0),
-	point4(-groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0)
-	
+	point4(-groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0)	
 };
 
 
 color4 main_colour = color4(1.0, 0.0, 0.0, 1.0);
+color4 ground_colour = color4(1.0, 0.0, 1.0, 1.0);
 
 // Array of rotation angles (in degrees) for each coordinate axis
 enum { Xaxis = 0, Yaxis = 1, Zaxis = 2, NumAxes = 3 };
@@ -125,12 +126,12 @@ quad(int a, int b, int c, int d)
 void
 floorQuad(int a, int b, int c, int d)
 {
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[b]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[a]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[c]); Index++;
-	colors[Index] = main_colour; pointsList.push_back(groundVertices[d]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[b]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[a]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[c]); Index++;
+	colors[Index] = ground_colour; pointsList.push_back(groundVertices[d]); Index++;
 }
 
 //----------------------------------------------------------------------------
@@ -162,20 +163,18 @@ void demolishRow()
 void
 colorcube()
 {
-	floorQuad(1, 0, 3, 2);
 	quad(1, 0, 3, 2);
 	quad(2, 3, 7, 6);
 	quad(3, 0, 4, 7);
 	quad(6, 5, 1, 2);
 	quad(4, 5, 6, 7);
 	quad(5, 4, 0, 1);
+	movePos.push_back((0.0, 0.0, 0.0));
+	cubeNumber++;
+	model_views.push_back(NULL);
 }
 
 //----------------------------------------------------------------------------
-
-void createNew() {
-
-}
 
 void populatePoints() {
 	for (int i = 0; i < pointsList.size(); i++) {
@@ -187,6 +186,7 @@ void populatePoints() {
 void
 init()
 {
+	floorQuad(1, 0, 3, 2);
 	colorcube();
 	populatePoints();
 	initGroundTiles();
@@ -272,19 +272,29 @@ init()
 
 //----------------------------------------------------------------------------
 
+void newBlock() {
+	colorcube();
+	populatePoints();
+	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber - 1]);
+	glDrawArrays(GL_TRIANGLES, 6, 36);
+}
+
 void
 display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	model_view = (Translate(-viewer_pos) * //modelview of the object
-		RotateX(Theta[Xaxis]) *
-		RotateY(Theta[Yaxis]) *
-		RotateZ(Theta[Zaxis]) *
-		Scale(Beta, Beta, Beta));
+	
 
-	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view);
-	glDrawArrays(GL_TRIANGLES, 6, NumVertices-6);
+	for (int i = 0; i < cubeNumber; i++) {
+		model_views[cubeNumber - 1] = ((Translate(-movePos[cubeNumber-1]) * //modelview of the object
+			RotateX(Theta[Xaxis]) *
+			RotateY(Theta[Yaxis]) *
+			RotateZ(Theta[Zaxis]) *
+			Scale(Beta, Beta, Beta)));
+		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[i]);
+		glDrawArrays(GL_TRIANGLES, 6 , NumVertices);
+	}
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view_floor);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glutSwapBuffers();
@@ -334,11 +344,8 @@ keyboard(unsigned char key, int x, int y)
 	if (key == 'Q' | key == 'q')
 		exit(0);
 	if (key == 'I' | key == 'i') {// initalizes the values
-		Beta = 1.0;
-		//model_view = Scale(Beta, Beta, Beta) *  RotateX(0) * RotateY(0) * RotateZ(0);
-		Theta[0] = 0;
-		Theta[1] = 0;
-		Theta[2] = 0;
+		//printf("%i\n", ((cubeNumber - 1) * 36));
+		printf("%i\n", cubeNumber);
 	}
 	if (key == 'H' | key == 'h') {
 		printf("To open the menu, right click on anywhere on the window. To turn the object around, use the arrow keys and M and N keys for z-axis rotation. Press z for zooming in and Z for zooming out. To initalize the object, press the I key and to quit the program press the Q key. In order to see a textured object more clearly, turn off the lights from the menu. You can later turn them back on to a light type of your desire.");
@@ -410,17 +417,16 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 	switch (key) {
 	case GLUT_KEY_UP:
-
-		viewer_pos.z -= 0.6;
+		movePos[cubeNumber - 1].z += 0.6;
 		break;
 	case GLUT_KEY_DOWN:
-		viewer_pos.z += 0.6;
+		movePos[cubeNumber - 1].z -= 0.6;
 		break;
 	case GLUT_KEY_RIGHT:
-		viewer_pos.x += 0.6;
+		movePos[cubeNumber - 1].x += 0.6;
 		break;
 	case GLUT_KEY_LEFT:
-		viewer_pos.x -= 0.6;
+		movePos[cubeNumber - 1].x -= 0.6;
 		break;
 
 	}
@@ -428,13 +434,19 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
+
 	/*
 	if(yGridPosition < 20)
 		viewer_pos.y += 0.6;
 	yGridPosition++;
 	*/
-	if (viewerposToCoordinates(viewer_pos.y) > groundPosY) {
-		viewer_pos.y += 0.6;
+	if (-movePos[cubeNumber - 1].y >= groundPosY*2) {
+		movePos[cubeNumber-1].y += 0.6;
+		printf("%f, %f\n", movePos[cubeNumber - 1].y, groundPosY);
+	}
+	else {
+		viewer_pos.y = 0;
+		newBlock();
 	}
 	glutPostRedisplay();
 
