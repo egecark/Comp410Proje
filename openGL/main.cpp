@@ -17,7 +17,7 @@ std::vector<mat4> model_views;
 
 mat4 model_view_floor;
 mat4  projection;
-vec3 viewer_pos(0.0, 0.0, 1.0);
+
 GLuint program;
 point4 light_position2(-1.0, 0.0, 0.0, 0.0);
 float  material_shininess = 5;
@@ -30,7 +30,7 @@ GLuint textureFlag = 0; //enable texture mapping
 GLuint shading = 1; //illumination model (sorry for the improper naming)
 int cubeNumber = 0;
 
-// Initialize shader lighting parameters
+//shader lighting parameters
 point4 light_position(-1.0, 0.0, 0.0, 1.0);
 color4 light_ambient(0.2, 0.2, 0.2, 1.0);
 color4 light_diffuse(1.0, 1.0, 1.0, 1.0);
@@ -58,24 +58,32 @@ std::vector<point4> offVertices; //the vector that holds vertices loaded from th
 std::vector<vec3> shapeNormal; //stores the normals of the shapeX
 std::vector<vec3> shapeQuad; //stores the faces of shapeX
 std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
-
+std::vector<vec3> movePos;
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
+GLfloat cubeLengthHalf = 0.3;
+GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
+GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
+GLfloat groundPosY = -cubeStartingPosY;
+
+GLfloat groundTileY[10][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
+
+vec3 viewer_pos(cubeLengthHalf, 0.0, cubeLengthHalf);	//Bu deðiþmeli
+
 point4 vertices[8] = {
-	point4(-0.25, 6.0,  0.25, 1.0),
-	point4(-0.25,  6.6,  0.25, 1.0),
-	point4(0.25,  6.6,  0.25, 1.0),
-	point4(0.25, 6.0,  0.25, 1.0),
-	point4(-0.25, 6.0, -0.25, 1.0),
-	point4(-0.25,  6.6, -0.25, 1.0),
-	point4(0.25,  6.6, -0.25, 1.0),
-	point4(0.25, 6.0, -0.25, 1.0)
+	point4(-cubeLengthHalf, cubeStartingPosY,  cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf, cubeStartingPosY,  cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf, cubeStartingPosY, -cubeLengthHalf, 1.0),
+	point4(-cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
+	point4(cubeLengthHalf, cubeStartingPosY, -cubeLengthHalf, 1.0)
 };
 point4 groundVertices[4] = {
-	point4(-3.0, -6.0, -3.0, 1.0),
-	point4(3.0, -6.0, -3.0, 1.0),
-	point4(3.0, -6.0, 3.0, 1.0),
-	point4(-3.0, -6.0, 3.0, 1.0)
-	
+	point4(-groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
+	point4(groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
+	point4(groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0),
+	point4(-groundLenghtHalf, groundPosY, groundLenghtHalf, 1.0)	
 };
 
 
@@ -128,6 +136,29 @@ floorQuad(int a, int b, int c, int d)
 
 //----------------------------------------------------------------------------
 
+void initGroundTiles()
+{
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			groundTileY[i][j] = groundPosY;
+		}
+	}
+}
+
+GLfloat viewerposToCoordinates(GLfloat viewer_posY)
+{
+	return 6.0 - viewer_posY;
+}
+
+void demolishRow()
+{
+	bool isEqual = false;
+	//if all the entries in groundTileY are equal and not groundPosY, demolish row
+	//row is all squares having the same resting position
+	
+}
+
+
 // generate 12 triangles: 36 vertices and 36 colors
 void
 colorcube()
@@ -138,13 +169,11 @@ colorcube()
 	quad(6, 5, 1, 2);
 	quad(4, 5, 6, 7);
 	quad(5, 4, 0, 1);
+	movePos.push_back((0.0, 0.0, 0.0));
 	cubeNumber++;
-	model_views.push_back((Translate(-viewer_pos) * //modelview of the object
-		RotateX(Theta[Xaxis]) *
-		RotateY(Theta[Yaxis]) *
-		RotateZ(Theta[Zaxis]) *
-		Scale(Beta, Beta, Beta)));
+	model_views.push_back(NULL);
 }
+
 //----------------------------------------------------------------------------
 
 void populatePoints() {
@@ -160,6 +189,8 @@ init()
 	floorQuad(1, 0, 3, 2);
 	colorcube();
 	populatePoints();
+	initGroundTiles();
+
 	// Create a vertex array object
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -244,6 +275,8 @@ init()
 void newBlock() {
 	colorcube();
 	populatePoints();
+	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber - 1]);
+	glDrawArrays(GL_TRIANGLES, 6, 36);
 }
 
 void
@@ -251,15 +284,16 @@ display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	model_views[cubeNumber-1] = ((Translate(-viewer_pos) * //modelview of the object
-		RotateX(Theta[Xaxis]) *
-		RotateY(Theta[Yaxis]) *
-		RotateZ(Theta[Zaxis]) *
-		Scale(Beta, Beta, Beta)));
+	
 
 	for (int i = 0; i < cubeNumber; i++) {
-		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber - 1]);
-		glDrawArrays(GL_TRIANGLES, 6 , 36*(i+1));
+		model_views[cubeNumber - 1] = ((Translate(-movePos[cubeNumber-1]) * //modelview of the object
+			RotateX(Theta[Xaxis]) *
+			RotateY(Theta[Yaxis]) *
+			RotateZ(Theta[Zaxis]) *
+			Scale(Beta, Beta, Beta)));
+		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[i]);
+		glDrawArrays(GL_TRIANGLES, 6 , NumVertices);
 	}
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view_floor);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -383,17 +417,16 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 	switch (key) {
 	case GLUT_KEY_UP:
-
-		viewer_pos.z -= 0.6;
+		movePos[cubeNumber - 1].z += 0.6;
 		break;
 	case GLUT_KEY_DOWN:
-		viewer_pos.z += 0.6;
+		movePos[cubeNumber - 1].z -= 0.6;
 		break;
 	case GLUT_KEY_RIGHT:
-		viewer_pos.x += 0.6;
+		movePos[cubeNumber - 1].x += 0.6;
 		break;
 	case GLUT_KEY_LEFT:
-		viewer_pos.x -= 0.6;
+		movePos[cubeNumber - 1].x -= 0.6;
 		break;
 
 	}
@@ -401,19 +434,23 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 void timer(int p)
 {
-	
-	if (yGridPosition < 20) {
+
+	/*
+	if(yGridPosition < 20)
 		viewer_pos.y += 0.6;
-		yGridPosition++;
+	yGridPosition++;
+	*/
+	if (-movePos[cubeNumber - 1].y >= groundPosY*2) {
+		movePos[cubeNumber-1].y += 0.6;
+		printf("%f, %f\n", movePos[cubeNumber - 1].y, groundPosY);
 	}
 	else {
-		viewer_pos.y = 0.0;
-		yGridPosition = 0;
+		viewer_pos.y = 0;
 		newBlock();
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(100, timer, 0);
+	glutTimerFunc(1000, timer, 0);
 }
 
 
