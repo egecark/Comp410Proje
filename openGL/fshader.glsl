@@ -9,7 +9,7 @@ varying vec4 color;
 varying  vec2 texCoord;
 uniform int TextureFlag;
 
-uniform sampler2D texture;
+uniform sampler2D myTexture;
 
 uniform vec4 AmbientProduct, DiffuseProduct, SpecularProduct;
 uniform mat4 ModelView;
@@ -53,7 +53,7 @@ void main()
 			    specular = vec4(0.0, 0.0, 0.0, 1.0);
 			}
 		if (TextureFlag == 1){
-			gl_FragColor = texture( texture, texCoord ) + ambient + diffuse + specular + color;
+			gl_FragColor = texture( myTexture, texCoord ) + ambient + diffuse + specular + color;
 			gl_FragColor.a = 1.0;
 		}else{
 			gl_FragColor = ambient + diffuse + specular + color;
@@ -61,7 +61,7 @@ void main()
 		}
 	}else{
 		if (TextureFlag == 1){
-        gl_FragColor = texture2D( texture, texCoord );
+        gl_FragColor = texture2D( myTexture, texCoord );
 		}else {
 			gl_FragColor = color;
 		}
