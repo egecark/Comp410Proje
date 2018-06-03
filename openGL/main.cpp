@@ -13,7 +13,7 @@ using namespace std;
 
 typedef vec4  color4;
 typedef vec4  point4;
-std::vector<mat4> model_views;
+
 
 mat4 model_view_floor;
 mat4  projection;
@@ -55,29 +55,34 @@ std::vector<point4> pointsList;
 vec3   normals[NumVertices];
 vec2   texture[NumVertices];
 std::vector<point4> offVertices; //the vector that holds vertices loaded from the .off file
+std::vector<mat4> model_views;
 std::vector<vec3> shapeNormal; //stores the normals of the shapeX
 std::vector<vec3> shapeQuad; //stores the faces of shapeX
 std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
 std::vector<vec3> movePos;
+std::vector<GLfloat> xGrid;
+std::vector<GLfloat> yGrid;
+std::vector<GLfloat> zGrid;
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
 GLfloat cubeLengthHalf = 0.3;
 GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
 GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
 GLfloat groundPosY = -cubeStartingPosY;
 
-GLfloat groundTileY[10][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
+GLfloat gameSpace[10][20][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
+
 
 vec3 viewer_pos(cubeLengthHalf, 0.0, cubeLengthHalf);	//Bu deðiþmeli
 
 point4 vertices[8] = {
-	point4(-cubeLengthHalf, cubeStartingPosY,  cubeLengthHalf, 1.0),
-	point4(-cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf,  cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf, cubeStartingPosY,  cubeLengthHalf, 1.0),
-	point4(-cubeLengthHalf, cubeStartingPosY, -cubeLengthHalf, 1.0),
-	point4(-cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf, 1.0),
-	point4(cubeLengthHalf, cubeStartingPosY, -cubeLengthHalf, 1.0)
+	point4(-cubeLengthHalf*2, cubeStartingPosY,  0, 1.0),
+	point4(-cubeLengthHalf*2,  cubeStartingPosY + 2 * cubeLengthHalf,  0, 1.0),
+	point4(0,  cubeStartingPosY + 2 * cubeLengthHalf,  0, 1.0),
+	point4(0, cubeStartingPosY,  0, 1.0),
+	point4(-cubeLengthHalf*2, cubeStartingPosY, -cubeLengthHalf*2, 1.0),
+	point4(-cubeLengthHalf*2,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf*2, 1.0),
+	point4(0,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf*2, 1.0),
+	point4(0, cubeStartingPosY, -cubeLengthHalf*2, 1.0)
 };
 point4 groundVertices[4] = {
 	point4(-groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
@@ -138,9 +143,11 @@ floorQuad(int a, int b, int c, int d)
 
 void initGroundTiles()
 {
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
-			groundTileY[i][j] = groundPosY;
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
+			for (int z = 0; z < 20; z++) {
+				gameSpace[x][y][z] = 0;
+			}
 		}
 	}
 }
@@ -170,7 +177,11 @@ colorcube()
 	quad(4, 5, 6, 7);
 	quad(5, 4, 0, 1);
 	movePos.push_back((0.0, 0.0, 0.0));
+	xGrid.push_back(5);
+	yGrid.push_back(19);
+	zGrid.push_back(5);
 	cubeNumber++;
+	gameSpace[5][19][5] = 1;
 	model_views.push_back(NULL);
 }
 
@@ -187,9 +198,10 @@ void
 init()
 {
 	floorQuad(1, 0, 3, 2);
+	initGroundTiles();
 	colorcube();
 	populatePoints();
-	initGroundTiles();
+	
 
 	// Create a vertex array object
 	GLuint vao;
@@ -275,8 +287,6 @@ init()
 void newBlock() {
 	colorcube();
 	populatePoints();
-	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber - 1]);
-	glDrawArrays(GL_TRIANGLES, 6, 36);
 }
 
 void
@@ -416,20 +426,72 @@ keyboard(unsigned char key, int x, int y)
 void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 	switch (key) {
+		int xLast;
+		int yLast;
+		int zLast;
 	case GLUT_KEY_UP:
-		movePos[cubeNumber - 1].z += 0.6;
+		xLast = xGrid.back();
+		yLast = yGrid.back();
+		zLast = zGrid.back();
+		if (gameSpace[xLast][yLast][zLast - 1] == 0) {
+			movePos[cubeNumber - 1].z -= 0.6;
+			gameSpace[xLast][yLast][zLast] = 0;
+			zGrid[cubeNumber - 1] -= 1;
+			zLast -= 1;
+			gameSpace[xLast][yLast][zLast] = 1;
+			printf("%i, %i, %i\n", xLast, yLast, zLast);
+		}
 		break;
 	case GLUT_KEY_DOWN:
-		movePos[cubeNumber - 1].z -= 0.6;
+		xLast = xGrid.back();
+		yLast = yGrid.back();
+		zLast = zGrid.back();
+		if (gameSpace[xLast][yLast][zLast + 1] == 0) {
+			movePos[cubeNumber - 1].z += 0.6;
+			gameSpace[xLast][yLast][zLast] = 0;
+			zGrid[cubeNumber - 1] += 1;
+			zLast += 1;
+			gameSpace[xLast][yLast][zLast] = 1;
+			printf("%i, %i, %i\n", xLast, yLast, zLast);
+		}
 		break;
 	case GLUT_KEY_RIGHT:
-		movePos[cubeNumber - 1].x += 0.6;
+		xLast = xGrid.back();
+		yLast = yGrid.back();
+		zLast = zGrid.back();
+		if (gameSpace[xLast - 1][yLast][zLast] == 0) {
+			movePos[cubeNumber - 1].x -= 0.6;
+			gameSpace[xLast][yLast][zLast] = 0;
+			xGrid[cubeNumber - 1] -= 1;
+			xLast -= 1;
+			gameSpace[xLast][yLast][zLast] = 1;
+			printf("%i, %i, %i\n", xLast, yLast, zLast);
+		}
 		break;
 	case GLUT_KEY_LEFT:
-		movePos[cubeNumber - 1].x -= 0.6;
+		xLast = xGrid.back();
+		yLast = yGrid.back();
+		zLast = zGrid.back();
+		if (gameSpace[xLast + 1][yLast][zLast] == 0) {
+			movePos[cubeNumber - 1].x += 0.6;
+			gameSpace[xLast][yLast][zLast] = 0;
+			xGrid[cubeNumber - 1] += 1;
+			xLast += 1;
+			gameSpace[xLast][yLast][zLast] = 1;
+			printf("%i, %i, %i\n", xLast, yLast, zLast);
+		}
 		break;
 
 	}
+}
+
+
+bool checkCollision() {
+	int xLast = xGrid.back();
+	int yLast = yGrid.back() - 1;
+	int zLast = zGrid.back();
+
+	return gameSpace[xLast][yLast][zLast] == 0;
 }
 
 void timer(int p)
@@ -440,9 +502,15 @@ void timer(int p)
 		viewer_pos.y += 0.6;
 	yGridPosition++;
 	*/
-	if (-movePos[cubeNumber - 1].y >= groundPosY*2) {
+	if (-movePos[cubeNumber - 1].y >= groundPosY*2 && checkCollision()) {
+		int xLast = xGrid.back();
+		int yLast = yGrid.back();
+		int zLast = zGrid.back();
+		gameSpace[xLast][yLast][zLast] = 0;
+		yGrid[cubeNumber-1] -= 1;
+		yLast -= 1;
+		gameSpace[xLast][yLast][zLast] = 1;
 		movePos[cubeNumber-1].y += 0.6;
-		printf("%f, %f\n", movePos[cubeNumber - 1].y, groundPosY);
 	}
 	else {
 		viewer_pos.y = 0;
@@ -450,7 +518,7 @@ void timer(int p)
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(1000, timer, 0);
+	glutTimerFunc(100, timer, 0);
 }
 
 
