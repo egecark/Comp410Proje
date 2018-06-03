@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="Angel.h" />
     <ClInclude Include="mat.h" />
+    <ClInclude Include="TetrisObjects.h" />
     <ClInclude Include="vec.h" />
   </ItemGroup>
   <ItemGroup>
