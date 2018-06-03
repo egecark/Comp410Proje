@@ -9,6 +9,7 @@
 #include <sstream>
 #include <list>
 #include <vector>
+#include "TetrisObjects.h"
 using namespace std;
 
 typedef vec4  color4;
@@ -64,10 +65,10 @@ std::vector<GLfloat> xGrid;
 std::vector<GLfloat> yGrid;
 std::vector<GLfloat> zGrid;
 								 // Vertices of a unit cube centered at origin, sides aligned with axes
-GLfloat cubeLengthHalf = 0.3;
-GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
-GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
-GLfloat groundPosY = -cubeStartingPosY;
+//GLfloat cubeLengthHalf = 0.3;
+//GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
+//GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
+//GLfloat groundPosY = -cubeStartingPosY;
 
 GLfloat gameSpace[10][20][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
 
@@ -114,7 +115,7 @@ GLuint  ModelView, Projection;
 //    to the vertices
 
 void
-quad(int a, int b, int c, int d)
+quad(int a, int b, int c, int d, point4 vertices[8])
 {
 		vec4 u = vertices[b] - vertices[a];
 		vec4 v = vertices[c] - vertices[b];
@@ -165,17 +166,25 @@ void demolishRow()
 	
 }
 
+void populatePoints() {
+	for (int i = 0; i < pointsList.size(); i++) {
+		points[i] = pointsList[i];
+	}
+}
+
+
+
 
 // generate 12 triangles: 36 vertices and 36 colors
 void
-colorcube()
+colorcube(point4 v[8])
 {
-	quad(1, 0, 3, 2);
-	quad(2, 3, 7, 6);
-	quad(3, 0, 4, 7);
-	quad(6, 5, 1, 2);
-	quad(4, 5, 6, 7);
-	quad(5, 4, 0, 1);
+	quad(1, 0, 3, 2, v);
+	quad(2, 3, 7, 6, v);
+	quad(3, 0, 4, 7, v);
+	quad(6, 5, 1, 2, v);
+	quad(4, 5, 6, 7, v);
+	quad(5, 4, 0, 1, v);
 	movePos.push_back((0.0, 0.0, 0.0));
 	xGrid.push_back(5);
 	yGrid.push_back(19);
@@ -185,13 +194,50 @@ colorcube()
 	model_views.push_back(NULL);
 }
 
+void newBlock(point4 v[8]) {
+	colorcube(v);
+	populatePoints();
+}
+
+void newStick() {
+	newBlock(vertices);
+	newBlock(vertices_pos1X);
+	newBlock(vertices_neg1X);
+	newBlock(vertices_neg2X);
+}
+
+void newLetterT() {
+	newBlock(vertices);
+	newBlock(vertices_pos1X);
+	newBlock(vertices_neg1X);
+	newBlock(vertices_pos1Y);
+}
+
+void newLetterS() {
+	newBlock(vertices);
+	newBlock(vertices_pos1X1Y);
+	newBlock(vertices_pos1Y);
+	newBlock(vertices_neg1X);
+}
+
+void newLetterZ() {
+	newBlock(vertices);
+	newBlock(vertices_neg1X1Y);
+	newBlock(vertices_pos1Y);
+	newBlock(vertices_neg1X);
+}
+
+void newLetterL() {
+	newBlock(vertices);
+	newBlock(vertices_pos1X1Y);
+	newBlock(vertices_pos1X);
+	newBlock(vertices_neg1X);
+
+}
+
 //----------------------------------------------------------------------------
 
-void populatePoints() {
-	for (int i = 0; i < pointsList.size(); i++) {
-		points[i] = pointsList[i];
-	}
-}
+
 
 // OpenGL initialization
 void
@@ -199,7 +245,7 @@ init()
 {
 	floorQuad(1, 0, 3, 2);
 	initGroundTiles();
-	colorcube();
+	newLetterL();
 	populatePoints();
 	
 
@@ -284,10 +330,7 @@ init()
 
 //----------------------------------------------------------------------------
 
-void newBlock() {
-	colorcube();
-	populatePoints();
-}
+
 
 void
 display(void)
@@ -452,7 +495,7 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 			zGrid[cubeNumber - 1] += 1;
 			zLast += 1;
 			gameSpace[xLast][yLast][zLast] = 1;
-			printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//printf("%i, %i, %i\n", xLast, yLast, zLast);
 		}
 		break;
 	case GLUT_KEY_RIGHT:
@@ -465,7 +508,7 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 			xGrid[cubeNumber - 1] -= 1;
 			xLast -= 1;
 			gameSpace[xLast][yLast][zLast] = 1;
-			printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//printf("%i, %i, %i\n", xLast, yLast, zLast);
 		}
 		break;
 	case GLUT_KEY_LEFT:
@@ -478,7 +521,7 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 			xGrid[cubeNumber - 1] += 1;
 			xLast += 1;
 			gameSpace[xLast][yLast][zLast] = 1;
-			printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//printf("%i, %i, %i\n", xLast, yLast, zLast);
 		}
 		break;
 
@@ -508,17 +551,18 @@ void timer(int p)
 		int zLast = zGrid.back();
 		gameSpace[xLast][yLast][zLast] = 0;
 		yGrid[cubeNumber-1] -= 1;
+		printf("%i, %i, %i\n", xLast, yLast, zLast);
 		yLast -= 1;
 		gameSpace[xLast][yLast][zLast] = 1;
 		movePos[cubeNumber-1].y += 0.6;
 	}
 	else {
 		viewer_pos.y = 0;
-		newBlock();
+		newLetterL();
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(100, timer, 0);
+	glutTimerFunc(1000, timer, 0);
 }
 
 

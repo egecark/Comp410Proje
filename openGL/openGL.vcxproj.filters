@@ -54,6 +54,9 @@
     <ClInclude Include="vec.h">
       <Filter>Kaynak Dosyalar</Filter>
     </ClInclude>
+    <ClInclude Include="TetrisObjects.h">
+      <Filter>Üst Bilgi Dosyaları</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\shapeX.offx.txt" />
