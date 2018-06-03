@@ -9,6 +9,8 @@
 #include <sstream>
 #include <list>
 #include <vector>
+#include <Windows.h>
+#include <mmsystem.h>
 using namespace std;
 
 typedef vec4  color4;
@@ -534,6 +536,7 @@ main(int argc, char **argv)
 	glewExperimental = GL_TRUE;
 	glewInit();
 	init();
+	PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	glutTimerFunc(5, timer, 0);
 
 	glutDisplayFunc(display); // set display callback function
