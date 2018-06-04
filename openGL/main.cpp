@@ -595,204 +595,277 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 		int xLast4;
 		int yLast4;
 		int zLast4;
+
+		bool if1;
+		bool if2;
+		bool if3;
+		bool if4;
 	case GLUT_KEY_UP:
 		xLast1 = xGrid[cubeNumber - 1];
 		yLast1 = yGrid[cubeNumber - 1];
 		zLast1 = zGrid[cubeNumber - 1];
-		if (gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 3 ||
-			gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 - 1] == 0) {
-			movePos[cubeNumber - 1].z -= 0.6;
-			gameSpace[xLast1][yLast1][zLast1] = 0;
-			zGrid[cubeNumber - 1] += 1;
-			zLast1 += 1;
-			gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
-			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
+
 		xLast2 = xGrid[cubeNumber - 2];
 		yLast2 = yGrid[cubeNumber - 2];
 		zLast2 = zGrid[cubeNumber - 2];
-		if (gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 2 || gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 3 ||
-			gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 - 1] == 0) {
-			movePos[cubeNumber - 2].z -= 0.6;
-			gameSpace[xLast2][yLast2][zLast2] = 0;
-			zGrid[cubeNumber - 2] += 1;
-			zLast2 += 1;
-			gameSpace[xLast2][yLast2][zLast2] = cubeNumber - 1;
-			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
+
 		xLast3 = xGrid[cubeNumber - 3];
 		yLast3 = yGrid[cubeNumber - 3];
 		zLast3 = zGrid[cubeNumber - 3];
-		if (gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 2 || gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 3 ||
-			gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 - 1] == 0) {
-			movePos[cubeNumber - 3].z -= 0.6;
-			gameSpace[xLast3][yLast3][zLast3] = 0;
-			zGrid[cubeNumber - 3] += 1;
-			zLast3 += 1;
-			gameSpace[xLast3][yLast3][zLast3] = cubeNumber - 2;
-			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
+
 		xLast4 = xGrid[cubeNumber - 4];
 		yLast4 = yGrid[cubeNumber - 4];
 		zLast4 = zGrid[cubeNumber - 4];
-		if (gameSpace[xLast4][yLast4][zLast4 - 1] == cubeNumber - 2 || gameSpace[xLast4][yLast4][zLast1 - 4] == cubeNumber - 3 ||
-			gameSpace[xLast4][yLast4][zLast4 - 1] == cubeNumber - 4 || gameSpace[xLast4][yLast4][zLast1 - 4] == 0) {
-			movePos[cubeNumber - 4].z -= 0.6;
-			gameSpace[xLast4][yLast4][zLast4] = 0;
-			zGrid[cubeNumber - 4] += 1;
-			zLast4 += 1;
-			gameSpace[xLast4][yLast4][zLast4] = cubeNumber - 3;
-			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		break;
-	case GLUT_KEY_DOWN:
-		xLast1 = xGrid[cubeNumber - 1];
-		yLast1 = yGrid[cubeNumber - 1];
-		zLast1 = zGrid[cubeNumber - 1];
-		if (gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 3 ||
-			gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 + 1] == 0) {
+
+		if1 = gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 3 ||
+			gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 - 1] == 0;
+
+		if2 = gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 2 || gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 3 ||
+			gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 - 1] == 0;
+
+		if3 = gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 2 || gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 3 ||
+			gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 - 1] == 0;
+
+		if4 = gameSpace[xLast4][yLast4][zLast4 - 1] == cubeNumber - 2 || gameSpace[xLast4][yLast4][zLast1 - 4] == cubeNumber - 3 ||
+			gameSpace[xLast4][yLast4][zLast4 - 1] == cubeNumber - 4 || gameSpace[xLast4][yLast4][zLast1 - 4] == 0;
+		if (if1 && if2 && if3 && if4) {
+
+			//if (gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 3 || gameSpace[xLast1][yLast1][zLast1 - 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 - 1] == 0) {
 			movePos[cubeNumber - 1].z += 0.6;
 			gameSpace[xLast1][yLast1][zLast1] = 0;
 			zGrid[cubeNumber - 1] -= 1;
 			zLast1 -= 1;
 			gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast2 = xGrid[cubeNumber - 2];
-		yLast2 = yGrid[cubeNumber - 2];
-		zLast2 = zGrid[cubeNumber - 2];
-		if (gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 1 || gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 3 ||
-			gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 + 1] == 0) {
+		//}
+
+		//if (gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 2 || gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 3 ||	gameSpace[xLast2][yLast2][zLast2 - 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 - 1] == 0) {
 			movePos[cubeNumber - 2].z += 0.6;
 			gameSpace[xLast2][yLast2][zLast2] = 0;
 			zGrid[cubeNumber - 2] -= 1;
 			zLast2 -= 1;
 			gameSpace[xLast2][yLast2][zLast2] = cubeNumber - 1;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast3 = xGrid[cubeNumber - 3];
-		yLast3 = yGrid[cubeNumber - 3];
-		zLast3 = zGrid[cubeNumber - 3];
-		if (gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 1 || gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 2 ||
-			gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 + 1] == 0) {
+		//}
+
+		//if (gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 2 || gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 3 ||	gameSpace[xLast3][yLast3][zLast3 - 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 - 1] == 0) {
 			movePos[cubeNumber - 3].z += 0.6;
 			gameSpace[xLast3][yLast3][zLast3] = 0;
 			zGrid[cubeNumber - 3] -= 1;
 			zLast3 -= 1;
 			gameSpace[xLast3][yLast3][zLast3] = cubeNumber - 2;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast4 = xGrid[cubeNumber - 4];
-		yLast4 = yGrid[cubeNumber - 4];
-		zLast4 = zGrid[cubeNumber - 4];
-		if (gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 1 || gameSpace[xLast4][yLast4][zLast4 + 1] == cubeNumber - 2 ||
-			gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 3 || gameSpace[xLast4][yLast4][zLast4 + 1] == 0) {
+		//}
+
+		//if (gameSpace[xLast4][yLast4][zLast4 - 1] == cubeNumber - 2 || gameSpace[xLast4][yLast4][zLast1 - 4] == cubeNumber - 3 ||	gameSpace[xLast4][yLast4][zLast4 - 1] == cubeNumber - 4 || gameSpace[xLast4][yLast4][zLast1 - 4] == 0) {
 			movePos[cubeNumber - 4].z += 0.6;
 			gameSpace[xLast4][yLast4][zLast4] = 0;
 			zGrid[cubeNumber - 4] -= 1;
 			zLast4 -= 1;
 			gameSpace[xLast4][yLast4][zLast4] = cubeNumber - 3;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
+		//}
+		}
+		break;
+	case GLUT_KEY_DOWN:
+		xLast1 = xGrid[cubeNumber - 1];
+		yLast1 = yGrid[cubeNumber - 1];
+		zLast1 = zGrid[cubeNumber - 1];
+
+		xLast2 = xGrid[cubeNumber - 2];
+		yLast2 = yGrid[cubeNumber - 2];
+		zLast2 = zGrid[cubeNumber - 2];
+
+		xLast3 = xGrid[cubeNumber - 3];
+		yLast3 = yGrid[cubeNumber - 3];
+		zLast3 = zGrid[cubeNumber - 3];
+
+		xLast4 = xGrid[cubeNumber - 4];
+		yLast4 = yGrid[cubeNumber - 4];
+		zLast4 = zGrid[cubeNumber - 4];
+
+		if1 = gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 3 ||
+			gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 + 1] == 0;
+
+		if2 = gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 1 || gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 3 ||
+			gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 + 1] == 0;
+
+		if3 = gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 1 || gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 2 ||
+			gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 + 1] == 0;
+
+		if4 = gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 1 || gameSpace[xLast4][yLast4][zLast4 + 1] == cubeNumber - 2 ||
+			gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 3 || gameSpace[xLast4][yLast4][zLast4 + 1] == 0;
+
+		if (if1 && if2 && if3 && if4) {
+
+
+			//if (gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 3 ||	gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 + 1] == 0) {
+				movePos[cubeNumber - 1].z -= 0.6;
+				gameSpace[xLast1][yLast1][zLast1] = 0;
+				zGrid[cubeNumber - 1] += 1;
+				zLast1 += 1;
+				gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
+				//printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//}
+
+			//if (gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 1 || gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 3 || gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 + 1] == 0) {
+				movePos[cubeNumber - 2].z -= 0.6;
+				gameSpace[xLast2][yLast2][zLast2] = 0;
+				zGrid[cubeNumber - 2] += 1;
+				zLast2 += 1;
+				gameSpace[xLast2][yLast2][zLast2] = cubeNumber - 1;
+				//printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//}
+
+			//if (gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 1 || gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 2 || gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 + 1] == 0) {
+				movePos[cubeNumber - 3].z -= 0.6;
+				gameSpace[xLast3][yLast3][zLast3] = 0;
+				zGrid[cubeNumber - 3] += 1;
+				zLast3 += 1;
+				gameSpace[xLast3][yLast3][zLast3] = cubeNumber - 2;
+				//printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//}
+
+			//if (gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 1 || gameSpace[xLast4][yLast4][zLast4 + 1] == cubeNumber - 2 || 	gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 3 || gameSpace[xLast4][yLast4][zLast4 + 1] == 0) {
+				movePos[cubeNumber - 4].z -= 0.6;
+				gameSpace[xLast4][yLast4][zLast4] = 0;
+				zGrid[cubeNumber - 4] += 1;
+				zLast4 += 1;
+				gameSpace[xLast4][yLast4][zLast4] = cubeNumber - 3;
+				//printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//}
 		}
 		break;
 	case GLUT_KEY_RIGHT:
 		xLast1 = xGrid[cubeNumber - 1];
 		yLast1 = yGrid[cubeNumber - 1];
 		zLast1 = zGrid[cubeNumber - 1];
-		if (gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 ||
-			gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 + 1][yLast1][zLast1] == 0) {
+
+		xLast2 = xGrid[cubeNumber - 2];
+		yLast2 = yGrid[cubeNumber - 2];
+		zLast2 = zGrid[cubeNumber - 2];
+
+		xLast3 = xGrid[cubeNumber - 3];
+		yLast3 = yGrid[cubeNumber - 3];
+		zLast3 = zGrid[cubeNumber - 3];
+
+		xLast4 = xGrid[cubeNumber - 4];
+		yLast4 = yGrid[cubeNumber - 4];
+		zLast4 = zGrid[cubeNumber - 4];
+
+		if1 = gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 ||
+			gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 + 1][yLast1][zLast1] == 0;
+
+		if2 = gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 3 ||
+			gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 + 1][yLast2][zLast2] == 0;
+
+		if3 = gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 + 3][yLast3][zLast3] == cubeNumber - 2 ||
+			gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 + 3][yLast3][zLast3] == 0;
+
+		if4 = gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 2 ||
+			gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 + 1][yLast4][zLast4] == 0;
+		if (if1 && if2 && if3 && if4) {
+			//if (gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 + 1][yLast1][zLast1] == 0) {
 			movePos[cubeNumber - 1].x -= 0.6;
 			gameSpace[xLast1][yLast1][zLast1] = 0;
 			xGrid[cubeNumber - 1] += 1;
 			xLast1 += 1;
 			gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
 			//printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
-		}
-		xLast2 = xGrid[cubeNumber - 2];
-		yLast2 = yGrid[cubeNumber - 2];
-		zLast2 = zGrid[cubeNumber - 2];
-		if (gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 3 ||
-			gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 + 1][yLast2][zLast2] == 0) {
+		//}
+
+		//if (gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 3 || gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 + 1][yLast2][zLast2] == 0) {
 			movePos[cubeNumber - 2].x -= 0.6;
 			gameSpace[xLast2][yLast2][zLast2] = 0;
 			xGrid[cubeNumber - 2] += 1;
 			xLast2 += 1;
 			gameSpace[xLast2][yLast2][zLast2] = cubeNumber - 1;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast3 = xGrid[cubeNumber - 3];
-		yLast3 = yGrid[cubeNumber - 3];
-		zLast3 = zGrid[cubeNumber - 3];
-		if (gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 + 3][yLast3][zLast3] == cubeNumber - 2 ||
-			gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 + 3][yLast3][zLast3] == 0) {
+		//}
+
+		//if (gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 + 3][yLast3][zLast3] == cubeNumber - 2 || gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 + 3][yLast3][zLast3] == 0) {
 			movePos[cubeNumber - 3].x -= 0.6;
 			gameSpace[xLast3][yLast3][zLast3] = 0;
 			xGrid[cubeNumber - 3] += 1;
 			xLast3 += 1;
 			gameSpace[xLast3][yLast3][zLast3] = cubeNumber - 2;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast4 = xGrid[cubeNumber - 4];
-		yLast4 = yGrid[cubeNumber - 4];
-		zLast4 = zGrid[cubeNumber - 4];
-		if (gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 2 ||
-			gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 + 1][yLast4][zLast4] == 0) {
+		//}
+
+		//if (gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 2 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 + 1][yLast4][zLast4] == 0) {
 			movePos[cubeNumber - 4].x -= 0.6;
 			gameSpace[xLast4][yLast4][zLast4] = 0;
 			xGrid[cubeNumber - 4] += 1;
 			xLast4 += 1;
 			gameSpace[xLast4][yLast4][zLast4] = cubeNumber - 3;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
+		//}
 		}
 		break;
 	case GLUT_KEY_LEFT:
 		xLast1 = xGrid[cubeNumber - 1];
 		yLast1 = yGrid[cubeNumber - 1];
 		zLast1 = zGrid[cubeNumber - 1];
-		if (gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 3 ||
-			gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 - 1][yLast1][zLast1] == 0) {
+
+		xLast2 = xGrid[cubeNumber - 2];
+		yLast2 = yGrid[cubeNumber - 2];
+		zLast2 = zGrid[cubeNumber - 2];
+
+		xLast3 = xGrid[cubeNumber - 3];
+		yLast3 = yGrid[cubeNumber - 3];
+		zLast3 = zGrid[cubeNumber - 3];
+
+		xLast4 = xGrid[cubeNumber - 4];
+		yLast4 = yGrid[cubeNumber - 4];
+		zLast4 = zGrid[cubeNumber - 4];
+
+		if1 = gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 3 ||
+					gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 - 1][yLast1][zLast1] == 0;
+
+		if2 = gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 3 ||
+					gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 - 1][yLast2][zLast2] == 0;
+
+		if3 = gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 - 3][yLast3][zLast3] == cubeNumber - 2 ||
+			gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 - 3][yLast3][zLast3] == 0;
+
+		if4 = gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 2 ||
+			gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 - 1][yLast4][zLast4] == 0;
+		if (if1 && if2 && if3 && if4) {
+			//if (gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 3 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 - 1][yLast1][zLast1] == 0) {
 			movePos[cubeNumber - 1].x += 0.6;
 			gameSpace[xLast1][yLast1][zLast1] = 0;
 			xGrid[cubeNumber - 1] -= 1;
 			xLast1 -= 1;
 			gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
 			//printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
-		}
-		xLast2 = xGrid[cubeNumber - 2];
-		yLast2 = yGrid[cubeNumber - 2];
-		zLast2 = zGrid[cubeNumber - 2];
-		if (gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 3 ||
-			gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 - 1][yLast2][zLast2] == 0) {
+		//}
+
+		//if (gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 3 || gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 - 1][yLast2][zLast2] == 0) {
 			movePos[cubeNumber - 2].x += 0.6;
 			gameSpace[xLast2][yLast2][zLast2] = 0;
 			xGrid[cubeNumber - 2] -= 1;
 			xLast2 -= 1;
 			gameSpace[xLast2][yLast2][zLast2] = cubeNumber - 1;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast3 = xGrid[cubeNumber - 3];
-		yLast3 = yGrid[cubeNumber - 3];
-		zLast3 = zGrid[cubeNumber - 3];
-		if (gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 - 3][yLast3][zLast3] == cubeNumber - 2 ||
-			gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 - 3][yLast3][zLast3] == 0) {
+		//}
+
+		//if (gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 - 3][yLast3][zLast3] == cubeNumber - 2 || gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 - 3][yLast3][zLast3] == 0) {
 			movePos[cubeNumber - 3].x += 0.6;
 			gameSpace[xLast3][yLast3][zLast3] = 0;
 			xGrid[cubeNumber - 3] -= 1;
 			xLast3 -= 1;
 			gameSpace[xLast3][yLast3][zLast3] = cubeNumber - 2;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
-		}
-		xLast4 = xGrid[cubeNumber - 4];
-		yLast4 = yGrid[cubeNumber - 4];
-		zLast4 = zGrid[cubeNumber - 4];
-		if (gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 2 ||
-			gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 - 1][yLast4][zLast4] == 0) {
+		//}
+
+		//if (gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 2 ||gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 - 1][yLast4][zLast4] == 0) {
 			movePos[cubeNumber - 4].x += 0.6;
 			gameSpace[xLast4][yLast4][zLast4] = 0;
 			xGrid[cubeNumber - 4] -= 1;
 			xLast4 -= 1;
-			gameSpace[xLast4][yLast4][zLast4] = cubeNumber -3;
+			gameSpace[xLast4][yLast4][zLast4] = cubeNumber - 3;
 			//printf("%i, %i, %i\n", xLast, yLast, zLast);
+		//}
 		}
 		break;
 
@@ -952,7 +1025,7 @@ void timer(int p)
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(100, timer, 0);
+	glutTimerFunc(1000, timer, 0);
 }
 //-----------------------------------------------------menu actions.
 void quit(int value)
