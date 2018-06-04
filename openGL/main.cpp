@@ -229,7 +229,7 @@ void newLetterT() {
 	newBlock(vertices_pos1X, 4, 18, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
 	newBlock(vertices_pos1Y, 5, 19, 5);
-	groundHeight = 20;
+	groundHeight = 19;
 }
 
 void newLetterS() {
@@ -1037,7 +1037,7 @@ void timer(int p)
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(500, timer, 0);
+	glutTimerFunc(200, timer, 0);
 }
 //-----------------------------------------------------menu actions.
 void quit(int value)
