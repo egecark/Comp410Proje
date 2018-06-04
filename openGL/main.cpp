@@ -248,6 +248,8 @@ void newLetterZ() {
 	groundHeight = 18;
 }
 
+
+
 void newLetterL() {
 	newBlock(vertices, 5, 18, 5);
 	newBlock(vertices_pos1X1Y, 4, 19, 5);
