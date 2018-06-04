@@ -756,8 +756,37 @@ void timer(int p)
 
 	glutTimerFunc(100, timer, 0);
 }
+//-----------------------------------------------------menu actions.
+void quit(int value)
+{
+	switch (value)
+	{
+	case 0:
+		exit(EXIT_SUCCESS);
+		break;
+	}
+}
 
+void musicMenuAction(int i)
+{
+	switch (i)
+	{
+	case 0:
+		PlaySound("classic.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	case 1:
+		PlaySound("traditional.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	case 2:
+		PlaySound("techno.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	case 3:
+		PlaySound("hiphop.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	}
+}
 
+void createMenu();
 //----------------------------------------------------------------------------
 
 int
@@ -770,7 +799,8 @@ main(int argc, char **argv)
 	glewExperimental = GL_TRUE;
 	glewInit();
 	init();
-	//PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	createMenu();
+	PlaySound("classic.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	glutTimerFunc(5, timer, 0);
 
 	glutDisplayFunc(display); // set display callback function
@@ -780,4 +810,18 @@ main(int argc, char **argv)
 
 	glutMainLoop();
 	return 0;
+}
+
+void createMenu()
+{
+	int musicMenu = glutCreateMenu(musicMenuAction); // object type.
+	glutAddMenuEntry("Classic", 0);
+	glutAddMenuEntry("Traditional", 1);
+	glutAddMenuEntry("Techno", 2);
+	glutAddMenuEntry("HipHop", 3);
+
+	glutCreateMenu(quit);
+	glutAddSubMenu("Select Music", musicMenu);
+	glutAddMenuEntry("Quit", 0);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
