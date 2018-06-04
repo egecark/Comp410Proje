@@ -229,7 +229,7 @@ void newLetterT() {
 	newBlock(vertices_pos1X, 4, 18, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
 	newBlock(vertices_pos1Y, 5, 19, 5);
-	groundHeight = 20;
+	groundHeight = 19;
 }
 
 void newLetterS() {
@@ -410,7 +410,7 @@ display(void)
 	*/
 
 	for (int i = 0; i < cubeNumber; i++) {
-		model_views[cubeNumber - 1] = ((Translate(-movePos[i]) * //modelview of the object
+		model_views[i] = ((Translate(-movePos[i]) * //modelview of the object
 			RotateX(Theta[Xaxis]) *
 			RotateY(Theta[Yaxis]) *
 			RotateZ(Theta[Zaxis]) *
@@ -504,7 +504,7 @@ keyboard(unsigned char key, int x, int y)
 		exit(0);
 	if (key == 'I' | key == 'i') {
 		for (int y = 20; y > 0; y--) {
-			for (int x = 10; x > 0; x--) {
+			for (int x = 0; x < 10; x++) {
 				printf("%i ",gameSpace[x][y][5]);
 			}
 			printf("\n");
@@ -764,6 +764,7 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 
 		if4 = gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 2 ||
 			gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 + 1][yLast4][zLast4] == 0;
+		printf("%i %i %i %i\n", if1, if2, if3, if4);
 		if (if1 && if2 && if3 && if4) {
 			//if (gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 + 1][yLast1][zLast1] == 0) {
 			movePos[cubeNumber - 1].x -= 0.6;
@@ -943,7 +944,6 @@ void timer(int p)
 			int yLast1 = yGrid[cubeNumber - 1];
 			int zLast1 = zGrid[cubeNumber - 1];
 			gameSpace[xLast1][yLast1][zLast1] = 0;
-			movePos[cubeNumber - 1].y += 0.6;
 			yGrid[cubeNumber - 1] -= 1;
 			//printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
 			yLast1 -= 1;
@@ -954,7 +954,6 @@ void timer(int p)
 			int yLast2 = yGrid[cubeNumber - 2];
 			int zLast2 = zGrid[cubeNumber - 2];
 			gameSpace[xLast2][yLast2][zLast2] = 0;
-			movePos[cubeNumber - 2].y += 0.6;
 			yGrid[cubeNumber - 2] -= 1;
 			//printf("%i, %i, %i\n", xLast2, yLast2, zLast2);
 			yLast2 -= 1;
@@ -965,7 +964,6 @@ void timer(int p)
 			int yLast3 = yGrid[cubeNumber - 3];
 			int zLast3 = zGrid[cubeNumber - 3];
 			gameSpace[xLast3][yLast3][zLast3] = 0;
-			movePos[cubeNumber - 3].y += 0.6;
 			yGrid[cubeNumber - 3] -= 1;
 			//printf("%i, %i, %i\n", xLast3, yLast3, zLast3);
 			yLast3 -= 1;
@@ -976,7 +974,6 @@ void timer(int p)
 			int yLast4 = yGrid[cubeNumber - 4];
 			int zLast4 = zGrid[cubeNumber - 4];
 			gameSpace[xLast4][yLast4][zLast4] = 0;
-			movePos[cubeNumber - 4].y += 0.6;
 			yGrid[cubeNumber - 4] -= 1;
 			//printf("%i, %i, %i\n", xLast4, yLast4, zLast4);
 			yLast4 -= 1;
@@ -984,6 +981,10 @@ void timer(int p)
 			//printf("%i\n", gameSpace[xLast4][yLast4][zLast4]);
 			
 
+			movePos[cubeNumber - 1].y += 0.6;
+			movePos[cubeNumber - 2].y += 0.6;
+			movePos[cubeNumber - 3].y += 0.6;
+			movePos[cubeNumber - 4].y += 0.6;
 			yGridPosition++;
 			//printf("%f, %f, %f, %f\n", movePos[cubeNumber - 1].y, movePos[cubeNumber - 2].y, movePos[cubeNumber - 3].y, movePos[cubeNumber - 4].y);
 		}
