@@ -291,14 +291,14 @@ void
 init()
 {
 	floorQuad(1, 0, 3, 2);
-	for (int x = 0; x < 10; x++) {
+	for (int x = 0; x < 4; x++) {
 		for (int y = 0; y < 20; y++) {
-			for (int z = 0; z < 10; z++) {
+			for (int z = 0; z < 4; z++) {
 				gameSpace[x][y][z] = 0;
 			}
 		}
 	}
-	newLetterZ();
+	newStick();
 	
 	ch1 = ch2 = ch3 = ch4 = ch5 = 48;
 	chY = chO = chU = chSpace = chL = chS = chE = 0;
@@ -1026,6 +1026,7 @@ void timer(int p)
 			gameSpace[x3][y3][z3] = cubeNumber - 3;
 			gameSpace[x4][y4][z4] = cubeNumber - 4;
 
+			//newStick();
 			createRandomObject();
 
 			glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals) + sizeof(texture), NULL, GL_STATIC_DRAW);
@@ -1040,7 +1041,7 @@ void timer(int p)
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(200, timer, 0);
+	glutTimerFunc(600, timer, 0);
 }
 //-----------------------------------------------------menu actions.
 void quit(int value)
