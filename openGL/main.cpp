@@ -266,7 +266,7 @@ init()
 	floorQuad(1, 0, 3, 2);
 	initGroundTiles();
 	printf("ege\n");
-	newLetterS();
+	newLetterT();
 	printf("egege\n");
 	populatePoints();
 	printf("egegege\n");
@@ -672,10 +672,13 @@ void timer(int p)
 	*/
 		if (yGridPosition < groundHeight && checkCollision()) {
 		//if (-movePos[cubeNumber - 1].y > groundPosY * 2 && -movePos[cubeNumber - 2].y > groundPosY * 2 && -movePos[cubeNumber - 3].y > groundPosY * 2 && -movePos[cubeNumber - 4].y > groundPosY * 2 && checkCollision()) {
+
+
 			int xLast1 = xGrid[cubeNumber - 1];
 			int yLast1 = yGrid[cubeNumber - 1];
 			int zLast1 = zGrid[cubeNumber - 1];
 			gameSpace[xLast1][yLast1][zLast1] = 0;
+			movePos[cubeNumber - 1].y += 0.6;
 			yGrid[cubeNumber - 1] -= 1;
 			printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
 			yLast1 -= 1;
@@ -686,6 +689,7 @@ void timer(int p)
 			int yLast2 = yGrid[cubeNumber - 2];
 			int zLast2 = zGrid[cubeNumber - 2];
 			gameSpace[xLast2][yLast2][zLast2] = 0;
+			movePos[cubeNumber - 2].y += 0.6;
 			yGrid[cubeNumber - 2] -= 1;
 			printf("%i, %i, %i\n", xLast2, yLast2, zLast2);
 			yLast2 -= 1;
@@ -696,6 +700,7 @@ void timer(int p)
 			int yLast3 = yGrid[cubeNumber - 3];
 			int zLast3 = zGrid[cubeNumber - 3];
 			gameSpace[xLast3][yLast3][zLast3] = 0;
+			movePos[cubeNumber - 3].y += 0.6;
 			yGrid[cubeNumber - 3] -= 1;
 			printf("%i, %i, %i\n", xLast3, yLast3, zLast3);
 			yLast3 -= 1;
@@ -706,22 +711,42 @@ void timer(int p)
 			int yLast4 = yGrid[cubeNumber - 4];
 			int zLast4 = zGrid[cubeNumber - 4];
 			gameSpace[xLast4][yLast4][zLast4] = 0;
+			movePos[cubeNumber - 4].y += 0.6;
 			yGrid[cubeNumber - 4] -= 1;
 			printf("%i, %i, %i\n", xLast4, yLast4, zLast4);
 			yLast4 -= 1;
 			gameSpace[xLast4][yLast4][zLast4] = cubeNumber-3;
 			//printf("%i\n", gameSpace[xLast4][yLast4][zLast4]);
+			
 
-			movePos[cubeNumber - 1].y += 0.6;
-			movePos[cubeNumber - 2].y += 0.6;
-			movePos[cubeNumber - 3].y += 0.6;
-			movePos[cubeNumber - 4].y += 0.6;
 			yGridPosition++;
 			//printf("%f, %f, %f, %f\n", movePos[cubeNumber - 1].y, movePos[cubeNumber - 2].y, movePos[cubeNumber - 3].y, movePos[cubeNumber - 4].y);
 		}
 		else {
 			yGridPosition = 0;
-			newLetterS();
+
+			int x1 = xGrid[cubeNumber - 1];
+			int y1 = yGrid[cubeNumber - 1];
+			int z1 = zGrid[cubeNumber - 1];
+
+			int x2 = xGrid[cubeNumber - 2];
+			int y2 = yGrid[cubeNumber - 2];
+			int z2 = zGrid[cubeNumber - 2];
+
+			int x3 = xGrid[cubeNumber - 3];
+			int y3 = yGrid[cubeNumber - 3];
+			int z3 = zGrid[cubeNumber - 3];
+
+			int x4 = xGrid[cubeNumber - 4];
+			int y4 = yGrid[cubeNumber - 4];
+			int z4 = zGrid[cubeNumber - 4];
+
+			gameSpace[x1][y1][z1] = cubeNumber - 1;
+			gameSpace[x2][y2][z2] = cubeNumber - 2;
+			gameSpace[x3][y3][z3] = cubeNumber - 3;
+			gameSpace[x4][y4][z4] = cubeNumber - 4;
+			
+			newLetterT();
 		}
 	score++;
 	if (score == 99999) {
@@ -745,7 +770,7 @@ main(int argc, char **argv)
 	glewExperimental = GL_TRUE;
 	glewInit();
 	init();
-	PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	//PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	glutTimerFunc(5, timer, 0);
 
 	glutDisplayFunc(display); // set display callback function
