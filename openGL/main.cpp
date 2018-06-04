@@ -9,6 +9,8 @@
 #include <sstream>
 #include <list>
 #include <vector>
+#include <Windows.h>
+#include <mmsystem.h>
 #include "TetrisObjects.h"
 using namespace std;
 
@@ -74,6 +76,13 @@ int gameSpace[10][20][10];	//10x10 ground tiles containing the elevation as y po
 
 
 vec3 viewer_pos(cubeLengthHalf, 0.0, cubeLengthHalf);	//Bu deðiþmeli
+
+GLvoid *font_style1 = GLUT_BITMAP_HELVETICA_18;
+int ch1, ch2, ch3, ch4, ch5;
+int score = 0;
+int chY, chO, chU, chSpace, chL, chS, chE;
+void updateScoreBoard(int);
+void failureMessageDisplay();
 
 point4 vertices[8] = {
 	point4(-cubeLengthHalf*2, cubeStartingPosY-0.6,  0, 1.0),
@@ -164,6 +173,8 @@ void demolishRow()
 	bool isEqual = false;
 	//if all the entries in groundTileY are equal and not groundPosY, demolish row
 	//row is all squares having the same resting position
+	int pointsEarned = 0;
+	updateScoreBoard(pointsEarned);
 	
 }
 
@@ -245,7 +256,8 @@ void newLetterL() {
 
 //----------------------------------------------------------------------------
 
-
+void initFailureMessage();
+void initScoreBoard();
 
 // OpenGL initialization
 void
@@ -259,6 +271,8 @@ init()
 	populatePoints();
 	printf("egegege\n");
 	
+	ch1 = ch2 = ch3 = ch4 = ch5 = 48;
+	chY = chO = chU = chSpace = chL = chS = chE = 0;
 
 	// Create a vertex array object
 	GLuint vao;
@@ -348,7 +362,23 @@ display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	
+	//ScoreBoard and messages
+	initScoreBoard();
+	initFailureMessage();
+
+	failureMessageDisplay();
+
+	int scoreTemp = score;
+	int ch = scoreTemp % 10;
+	scoreTemp = scoreTemp / 10;
+	ch1 = 48 + ch;
+	ch2 = 48 + ((scoreTemp) % 10);
+	scoreTemp = scoreTemp / 10;
+	ch3 = 48 + (scoreTemp) % 10;
+	scoreTemp = scoreTemp / 10;
+	ch4 = 48 + (scoreTemp) % 10;
+	scoreTemp = scoreTemp / 10;
+	ch5 = 48 + (scoreTemp) % 10;
 
 	for (int i = 0; i < cubeNumber; i++) {
 		model_views[cubeNumber - 1] = ((Translate(-movePos[cubeNumber-1]) * //modelview of the object
@@ -387,6 +417,39 @@ void reshape(int w, int h)
 
 }
 
+void initScoreBoard()
+{
+	glRasterPos3f(0.8, 0.8, 0.0);
+	glutBitmapCharacter(font_style1, ch1);
+	glRasterPos3f(0.75, 0.8, 0.0);
+	glutBitmapCharacter(font_style1, ch2);
+	glRasterPos3f(0.70, 0.8, 0.0);
+	glutBitmapCharacter(font_style1, ch3);
+	glRasterPos3f(0.65, 0.8, 0.0);
+	glutBitmapCharacter(font_style1, ch4);
+	glRasterPos3f(0.60, 0.8, 0.0);
+	glutBitmapCharacter(font_style1, ch5);
+}
+
+void initFailureMessage()
+{
+	glRasterPos3f(-0.6, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chY);
+	glRasterPos3f(-0.4, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chO);
+	glRasterPos3f(-0.2, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chU);
+	glRasterPos3f(0.0, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chSpace);
+	glRasterPos3f(0.2, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chL);
+	glRasterPos3f(0.4, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chO);
+	glRasterPos3f(0.6, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chS);
+	glRasterPos3f(0.8, 0.0, 0.0);
+	glutBitmapCharacter(font_style1, chE);
+}
 void
 idle(void)
 {
@@ -545,6 +608,33 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 }
 
 
+void updateScoreBoard(int pointsEarned)
+{
+	score += pointsEarned;
+	int scoreTemp = score;
+	int ch = scoreTemp % 10;
+	scoreTemp = scoreTemp / 10;
+	ch1 = 48 + ch;
+	ch2 = 48 + ((scoreTemp) % 10);
+	scoreTemp = scoreTemp / 10;
+	ch3 = 48 + (scoreTemp) % 10;
+	scoreTemp = scoreTemp / 10;
+	ch4 = 48 + (scoreTemp) % 10;
+	scoreTemp = scoreTemp / 10;
+	ch5 = 48 + (scoreTemp) % 10;
+}
+
+void failureMessageDisplay()
+{
+	chY = 89;
+	chO = 79;
+	chU = 85;
+	chSpace = 32;
+	chL= 76;
+	chS = 83;
+	chE = 69;
+}
+
 bool checkCollision() {
 	bool answer = true;
 	
@@ -633,6 +723,10 @@ void timer(int p)
 			yGridPosition = 0;
 			newLetterS();
 		}
+	score++;
+	if (score == 99999) {
+		score = 0;
+	}
 	glutPostRedisplay();
 
 	glutTimerFunc(100, timer, 0);
@@ -651,6 +745,7 @@ main(int argc, char **argv)
 	glewExperimental = GL_TRUE;
 	glewInit();
 	init();
+	PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	glutTimerFunc(5, timer, 0);
 
 	glutDisplayFunc(display); // set display callback function
