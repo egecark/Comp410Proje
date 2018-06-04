@@ -67,6 +67,7 @@ std::vector<vec3> shapeNormal; //stores the normals of the shapeX
 std::vector<vec3> shapeQuad; //stores the faces of shapeX
 std::vector<vec2> texCoords; //stores the texture coordinates of shapeX
 std::vector<vec3> movePos;
+std::vector<vec3> Thetas;
 std::vector<GLfloat> xGrid;
 std::vector<GLfloat> yGrid;
 std::vector<GLfloat> zGrid;
@@ -201,7 +202,9 @@ colorcube(point4 v[8], int x, int y, int z)
 	quad(5, 4, 0, 1, v);
 	float yOffset = 12 - 0.6*y;
 	vec3 moveVector = (0.0, 0.0 + yOffset, 0.0);
+	vec3 rotateVector = (0.0, 0.0, 0.0);
 	movePos.push_back(moveVector);
+	Thetas.push_back(rotateVector);
 	xGrid.push_back(x);
 	yGrid.push_back(y);
 	zGrid.push_back(z);
@@ -412,13 +415,13 @@ display(void)
 	*/
 
 	for (int i = 0; i < cubeNumber; i++) {
-		model_views[cubeNumber - 1] = ((Translate(-movePos[i]) * //modelview of the object
-			RotateX(Theta[Xaxis]) *
-			RotateY(Theta[Yaxis]) *
-			RotateZ(Theta[Zaxis]) *
+		model_views[i] = ((Translate(-movePos[i]) * //modelview of the object
+			RotateX(Thetas[i].x) *
+			RotateY(Thetas[i].y) *
+			RotateZ(Thetas[i].z) *
 			Scale(Beta, Beta, Beta)));
 
-		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber -1]);
+		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[i]);
 		glDrawArrays(GL_TRIANGLES, 6+36*i, 36);
 		
 	}
@@ -496,9 +499,34 @@ idle(void)
 
 	glutPostRedisplay();
 }
+bool checkRotateCollision() {
+	bool answer = true;
+
+	int xLast = xGrid[cubeNumber - 1];
+	int yLast = yGrid[cubeNumber - 1];
+	int zLast = zGrid[cubeNumber - 1];
+	bool answer1 = gameSpace[zLast][yLast][-xLast] == 0;
+
+	int xLast2 = xGrid[cubeNumber - 2];
+	int yLast2 = yGrid[cubeNumber - 2];
+	int zLast2 = zGrid[cubeNumber - 2];
+	bool answer2 = gameSpace[zLast2][yLast2][-xLast2] == 0;
+
+	int xLast3 = xGrid[cubeNumber - 3];
+	int yLast3 = yGrid[cubeNumber - 3];
+	int zLast3 = zGrid[cubeNumber - 3];
+	bool answer3 = gameSpace[zLast3][yLast3][-xLast3] == 0;
+
+	int xLast4 = xGrid[cubeNumber - 4];
+	int yLast4 = yGrid[cubeNumber - 4];
+	int zLast4 = zGrid[cubeNumber - 4];
+	bool answer4 = gameSpace[zLast4][yLast4][-xLast4] == 0;
+
+	answer = answer1 && answer2 && answer3 && answer4;
+	return answer;
+}
 
 //----------------------------------------------------------------------------
-
 void
 keyboard(unsigned char key, int x, int y)
 {
@@ -576,6 +604,38 @@ keyboard(unsigned char key, int x, int y)
 			Theta2[Axis] -= 360.0;
 		}
 		reshape(512, 512);//reshape function is necessary for refreshing the view with a different camera perspective
+	}
+	if (key == 'R' | key == 'r') {
+		if (checkRotateCollision()) {
+			int xLast = xGrid[cubeNumber - 1];
+			int yLast = yGrid[cubeNumber - 1];
+			int zLast = zGrid[cubeNumber - 1];
+			gameSpace[xLast][yLast][zLast] = 0;
+
+			int xLast2 = xGrid[cubeNumber - 2];
+			int yLast2 = yGrid[cubeNumber - 2];
+			int zLast2 = zGrid[cubeNumber - 2];
+			gameSpace[xLast2][yLast2][zLast2] = 0;
+
+			int xLast3 = xGrid[cubeNumber - 3];
+			int yLast3 = yGrid[cubeNumber - 3];
+			int zLast3 = zGrid[cubeNumber - 3];
+			gameSpace[xLast3][yLast3][zLast3] = 0;
+
+			int xLast4 = xGrid[cubeNumber - 4];
+			int yLast4 = yGrid[cubeNumber - 4];
+			int zLast4 = zGrid[cubeNumber - 4];
+			gameSpace[xLast4][yLast4][zLast4] = 0;
+
+			gameSpace[zLast4][yLast4][-xLast4] = cubeNumber - 1;
+			gameSpace[zLast4][yLast4][-xLast4] = cubeNumber - 2;
+			gameSpace[zLast4][yLast4][-xLast4] = cubeNumber - 3;
+			gameSpace[zLast4][yLast4][-xLast4] = cubeNumber - 4;
+			Thetas[cubeNumber - 1].y += 90;
+			Thetas[cubeNumber - 2].y += 90;
+			Thetas[cubeNumber - 3].y += 90;
+			Thetas[cubeNumber - 4].y += 90;
+	}
 	}
 }
 
@@ -941,6 +1001,8 @@ bool checkCollision() {
 	return answer;
 }
 
+
+
 void timer(int p)
 {
 
@@ -1040,7 +1102,7 @@ void timer(int p)
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(600, timer, 0);
+	glutTimerFunc(300, timer, 0);
 }
 //-----------------------------------------------------menu actions.
 void quit(int value)
