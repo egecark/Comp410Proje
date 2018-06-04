@@ -72,7 +72,7 @@ std::vector<GLfloat> zGrid;
 //GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
 //GLfloat groundPosY = -cubeStartingPosY;
 
-GLfloat gameSpace[10][20][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
+int gameSpace[10][20][10];	//10x10 ground tiles containing the elevation as y position. Will be initialized in init
 
 
 vec3 viewer_pos(cubeLengthHalf, 0.0, cubeLengthHalf);	//Bu deðiþmeli
@@ -85,14 +85,14 @@ void updateScoreBoard(int);
 void failureMessageDisplay();
 
 point4 vertices[8] = {
-	point4(-cubeLengthHalf*2, cubeStartingPosY,  0, 1.0),
-	point4(-cubeLengthHalf*2,  cubeStartingPosY + 2 * cubeLengthHalf,  0, 1.0),
-	point4(0,  cubeStartingPosY + 2 * cubeLengthHalf,  0, 1.0),
-	point4(0, cubeStartingPosY,  0, 1.0),
-	point4(-cubeLengthHalf*2, cubeStartingPosY, -cubeLengthHalf*2, 1.0),
-	point4(-cubeLengthHalf*2,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf*2, 1.0),
-	point4(0,  cubeStartingPosY + 2 * cubeLengthHalf, -cubeLengthHalf*2, 1.0),
-	point4(0, cubeStartingPosY, -cubeLengthHalf*2, 1.0)
+	point4(-cubeLengthHalf*2, cubeStartingPosY-0.6,  0, 1.0),
+	point4(-cubeLengthHalf*2,  cubeStartingPosY - 0.6 + 2 * cubeLengthHalf,  0, 1.0),
+	point4(0,  cubeStartingPosY - 0.6 + 2 * cubeLengthHalf,  0, 1.0),
+	point4(0, cubeStartingPosY - 0.6,  0, 1.0),
+	point4(-cubeLengthHalf*2, cubeStartingPosY - 0.6, -cubeLengthHalf*2, 1.0),
+	point4(-cubeLengthHalf*2,  cubeStartingPosY - 0.6 + 2 * cubeLengthHalf, -cubeLengthHalf*2, 1.0),
+	point4(0,  cubeStartingPosY - 0.6 + 2 * cubeLengthHalf, -cubeLengthHalf*2, 1.0),
+	point4(0, cubeStartingPosY - 0.6, -cubeLengthHalf*2, 1.0)
 };
 point4 groundVertices[4] = {
 	point4(-groundLenghtHalf, groundPosY, -groundLenghtHalf, 1.0),
@@ -107,6 +107,7 @@ color4 ground_colour = color4(1.0, 0.0, 1.0, 1.0);
 
 // Array of rotation angles (in degrees) for each coordinate axis
 enum { Xaxis = 0, Yaxis = 1, Zaxis = 2, NumAxes = 3 };
+int groundHeight;
 int  Axis = Yaxis;
 bool expand = true;
 bool wireframe = false;
@@ -154,8 +155,8 @@ floorQuad(int a, int b, int c, int d)
 void initGroundTiles()
 {
 	for (int x = 0; x < 10; x++) {
-		for (int y = 0; y < 10; y++) {
-			for (int z = 0; z < 20; z++) {
+		for (int y = 0; y < 20; y++) {
+			for (int z = 0; z < 10; z++) {
 				gameSpace[x][y][z] = 0;
 			}
 		}
@@ -186,7 +187,7 @@ void populatePoints() {
 
 // generate 12 triangles: 36 vertices and 36 colors
 void
-colorcube(point4 v[8])
+colorcube(point4 v[8], int x, int y, int z)
 {
 	quad(1, 0, 3, 2, v);
 	quad(2, 3, 7, 6, v);
@@ -194,54 +195,61 @@ colorcube(point4 v[8])
 	quad(6, 5, 1, 2, v);
 	quad(4, 5, 6, 7, v);
 	quad(5, 4, 0, 1, v);
-	movePos.push_back((0.0, 0.0, 0.0));
-	xGrid.push_back(5);
-	yGrid.push_back(19);
-	zGrid.push_back(5);
+	float yOffset = 12 - 0.6*y;
+	vec3 moveVector = (0.0, 0.0 + yOffset, 0.0);
+	movePos.push_back(moveVector);
+	xGrid.push_back(x);
+	yGrid.push_back(y);
+	zGrid.push_back(z);
 	cubeNumber++;
-	gameSpace[5][19][5] = 1;
+	movePos[cubeNumber - 1].y += yOffset;
+	gameSpace[x][y][z] = cubeNumber;
 	model_views.push_back(NULL);
 }
 
-void newBlock(point4 v[8]) {
-	colorcube(v);
+void newBlock(point4 v[8], int x, int y, int z) {
+	colorcube(v, x, y, z);
 	populatePoints();
 }
 
 void newStick() {
-	newBlock(vertices);
-	newBlock(vertices_pos1X);
-	newBlock(vertices_neg1X);
-	newBlock(vertices_neg2X);
+	newBlock(vertices, 5, 18, 5);
+	newBlock(vertices_pos1X, 4, 18, 5);
+	newBlock(vertices_neg1X, 6, 18, 5);
+	newBlock(vertices_neg2X, 7, 18, 5);
+	groundHeight = 17;
 }
 
 void newLetterT() {
-	newBlock(vertices);
-	newBlock(vertices_pos1X);
-	newBlock(vertices_neg1X);
-	newBlock(vertices_pos1Y);
+	newBlock(vertices, 5, 18, 5);
+	newBlock(vertices_pos1X, 4, 18, 5);
+	newBlock(vertices_neg1X, 6, 18, 5);
+	newBlock(vertices_pos1Y, 5, 19, 5);
+	groundHeight = 18;
 }
 
 void newLetterS() {
-	newBlock(vertices);
-	newBlock(vertices_pos1X1Y);
-	newBlock(vertices_pos1Y);
-	newBlock(vertices_neg1X);
+	newBlock(vertices, 5, 18, 5);
+	newBlock(vertices_pos1X1Y, 4, 19, 5);
+	newBlock(vertices_pos1Y, 5, 19, 5);
+	newBlock(vertices_neg1X, 6, 18, 5);
+	groundHeight = 17;
 }
 
 void newLetterZ() {
-	newBlock(vertices);
-	newBlock(vertices_neg1X1Y);
-	newBlock(vertices_pos1Y);
-	newBlock(vertices_neg1X);
+	newBlock(vertices, 5, 18, 5);
+	newBlock(vertices_neg1X1Y, 6, 17, 5);
+	newBlock(vertices_pos1Y, 5, 19, 5);
+	newBlock(vertices_neg1X, 6, 18, 5);
+	groundHeight = 16;
 }
 
 void newLetterL() {
-	newBlock(vertices);
-	newBlock(vertices_pos1X1Y);
-	newBlock(vertices_pos1X);
-	newBlock(vertices_neg1X);
-
+	newBlock(vertices, 5, 18, 5);
+	newBlock(vertices_pos1X1Y, 4, 19, 5);
+	newBlock(vertices_pos1X, 4, 18, 5);
+	newBlock(vertices_neg1X, 6, 18, 5);
+	groundHeight = 17;
 }
 
 //----------------------------------------------------------------------------
@@ -255,8 +263,11 @@ init()
 {
 	floorQuad(1, 0, 3, 2);
 	initGroundTiles();
-	newLetterL();
+	printf("ege\n");
+	newLetterS();
+	printf("egege\n");
 	populatePoints();
+	printf("egegege\n");
 	
 	ch1 = ch2 = ch3 = ch4 = ch5 = 48;
 	chY = chO = chU = chSpace = chL = chS = chE = 0;
@@ -459,9 +470,14 @@ keyboard(unsigned char key, int x, int y)
 {
 	if (key == 'Q' | key == 'q')
 		exit(0);
-	if (key == 'I' | key == 'i') {// initalizes the values
-		//printf("%i\n", ((cubeNumber - 1) * 36));
-		printf("%i\n", cubeNumber);
+	if (key == 'I' | key == 'i') {
+		for (int y = 0; y < 20; y++) {
+			for (int x = 0; x < 10; x++) {
+				printf("%i ",gameSpace[x][y][5]);
+			}
+			printf("\n");
+		}
+		printf("\n");
 	}
 	if (key == 'H' | key == 'h') {
 		printf("To open the menu, right click on anywhere on the window. To turn the object around, use the arrow keys and M and N keys for z-axis rotation. Press z for zooming in and Z for zooming out. To initalize the object, press the I key and to quit the program press the Q key. In order to see a textured object more clearly, turn off the lights from the menu. You can later turn them back on to a light type of your desire.");
@@ -545,7 +561,7 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 			zGrid[cubeNumber - 1] -= 1;
 			zLast -= 1;
 			gameSpace[xLast][yLast][zLast] = 1;
-			printf("%i, %i, %i\n", xLast, yLast, zLast);
+			//printf("%i, %i, %i\n", xLast, yLast, zLast);
 		}
 		break;
 	case GLUT_KEY_DOWN:
@@ -620,11 +636,30 @@ void failureMessageDisplay()
 }
 
 bool checkCollision() {
-	int xLast = xGrid.back();
-	int yLast = yGrid.back() - 1;
-	int zLast = zGrid.back();
+	bool answer = true;
+	
+	int xLast = xGrid[cubeNumber - 1];
+	int yLast = yGrid[cubeNumber - 1] - 1;
+	int zLast = zGrid[cubeNumber - 1];
+	bool answer1 = gameSpace[xLast][yLast][zLast] == cubeNumber - 2 || gameSpace[xLast][yLast][zLast] == cubeNumber - 3 || gameSpace[xLast][yLast][zLast] == cubeNumber - 4 || gameSpace[xLast][yLast][zLast] == 0;
 
-	return gameSpace[xLast][yLast][zLast] == 0;
+	xLast = xGrid[cubeNumber - 2];
+	yLast = yGrid[cubeNumber - 2] - 1;
+	zLast = zGrid[cubeNumber - 2];
+	bool answer2 = gameSpace[xLast][yLast][zLast] == cubeNumber - 1 || gameSpace[xLast][yLast][zLast] == cubeNumber - 3 || gameSpace[xLast][yLast][zLast] == cubeNumber - 4 || gameSpace[xLast][yLast][zLast] == 0;
+
+	xLast = xGrid[cubeNumber - 3];
+	yLast = yGrid[cubeNumber - 3] - 1;
+	zLast = zGrid[cubeNumber - 3];
+	bool answer3 = gameSpace[xLast][yLast][zLast] == cubeNumber - 1 || gameSpace[xLast][yLast][zLast] == cubeNumber - 2 || gameSpace[xLast][yLast][zLast] == cubeNumber - 4 || gameSpace[xLast][yLast][zLast] == 0;
+
+	xLast = xGrid[cubeNumber - 4];
+	yLast = yGrid[cubeNumber - 4] - 1;
+	zLast = zGrid[cubeNumber - 4];
+	bool answer4 = gameSpace[xLast][yLast][zLast] == cubeNumber - 1 || gameSpace[xLast][yLast][zLast] == cubeNumber - 2 || gameSpace[xLast][yLast][zLast] == cubeNumber - 3 || gameSpace[xLast][yLast][zLast] == 0;
+	
+	answer = answer1 && answer2 && answer3 && answer4;
+	return answer;
 }
 
 void timer(int p)
@@ -635,28 +670,66 @@ void timer(int p)
 		viewer_pos.y += 0.6;
 	yGridPosition++;
 	*/
+		if (yGridPosition < groundHeight && checkCollision()) {
+		//if (-movePos[cubeNumber - 1].y > groundPosY * 2 && -movePos[cubeNumber - 2].y > groundPosY * 2 && -movePos[cubeNumber - 3].y > groundPosY * 2 && -movePos[cubeNumber - 4].y > groundPosY * 2 && checkCollision()) {
+			int xLast1 = xGrid[cubeNumber - 1];
+			int yLast1 = yGrid[cubeNumber - 1];
+			int zLast1 = zGrid[cubeNumber - 1];
+			gameSpace[xLast1][yLast1][zLast1] = 0;
+			yGrid[cubeNumber - 1] -= 1;
+			printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
+			yLast1 -= 1;
+			gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
+			//printf("%i\n", gameSpace[xLast1][yLast1][zLast1]);
+
+			int xLast2 = xGrid[cubeNumber - 2];
+			int yLast2 = yGrid[cubeNumber - 2];
+			int zLast2 = zGrid[cubeNumber - 2];
+			gameSpace[xLast2][yLast2][zLast2] = 0;
+			yGrid[cubeNumber - 2] -= 1;
+			printf("%i, %i, %i\n", xLast2, yLast2, zLast2);
+			yLast2 -= 1;
+			gameSpace[xLast2][yLast2][zLast2] = cubeNumber-1;
+			//printf("%i\n", gameSpace[xLast2][yLast2][zLast2]);
+
+			int xLast3 = xGrid[cubeNumber - 3];
+			int yLast3 = yGrid[cubeNumber - 3];
+			int zLast3 = zGrid[cubeNumber - 3];
+			gameSpace[xLast3][yLast3][zLast3] = 0;
+			yGrid[cubeNumber - 3] -= 1;
+			printf("%i, %i, %i\n", xLast3, yLast3, zLast3);
+			yLast3 -= 1;
+			gameSpace[xLast3][yLast3][zLast3] = cubeNumber-2;
+			//printf("%i\n", gameSpace[xLast3][yLast3][zLast3]);
+
+			int xLast4 = xGrid[cubeNumber - 4];
+			int yLast4 = yGrid[cubeNumber - 4];
+			int zLast4 = zGrid[cubeNumber - 4];
+			gameSpace[xLast4][yLast4][zLast4] = 0;
+			yGrid[cubeNumber - 4] -= 1;
+			printf("%i, %i, %i\n", xLast4, yLast4, zLast4);
+			yLast4 -= 1;
+			gameSpace[xLast4][yLast4][zLast4] = cubeNumber-3;
+			//printf("%i\n", gameSpace[xLast4][yLast4][zLast4]);
+
+			movePos[cubeNumber - 1].y += 0.6;
+			movePos[cubeNumber - 2].y += 0.6;
+			movePos[cubeNumber - 3].y += 0.6;
+			movePos[cubeNumber - 4].y += 0.6;
+			yGridPosition++;
+			//printf("%f, %f, %f, %f\n", movePos[cubeNumber - 1].y, movePos[cubeNumber - 2].y, movePos[cubeNumber - 3].y, movePos[cubeNumber - 4].y);
+		}
+		else {
+			yGridPosition = 0;
+			newLetterS();
+		}
 	score++;
 	if (score == 99999) {
 		score = 0;
 	}
-	if (-movePos[cubeNumber - 1].y >= groundPosY*2 && checkCollision()) {
-		int xLast = xGrid.back();
-		int yLast = yGrid.back();
-		int zLast = zGrid.back();
-		gameSpace[xLast][yLast][zLast] = 0;
-		yGrid[cubeNumber-1] -= 1;
-		printf("%i, %i, %i\n", xLast, yLast, zLast);
-		yLast -= 1;
-		gameSpace[xLast][yLast][zLast] = 1;
-		movePos[cubeNumber-1].y += 0.6;
-	}
-	else {
-		viewer_pos.y = 0;
-		newLetterL();
-	}
 	glutPostRedisplay();
 
-	glutTimerFunc(80, timer, 0);
+	glutTimerFunc(100, timer, 0);
 }
 
 
