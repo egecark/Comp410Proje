@@ -4,7 +4,7 @@ typedef vec4  point4;
 
 
 GLfloat cubeLengthHalf = 0.3;
-GLfloat groundLenghtHalf = 10 * cubeLengthHalf;
+GLfloat groundLenghtHalf = 4 * cubeLengthHalf;
 GLfloat cubeStartingPosY = cubeLengthHalf * 10 * 2;
 GLfloat groundPosY = -cubeStartingPosY;
 
