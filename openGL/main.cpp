@@ -12,6 +12,8 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include "TetrisObjects.h"
+
+GLuint buffer;
 using namespace std;
 
 typedef vec4  color4;
@@ -264,7 +266,7 @@ init()
 	floorQuad(1, 0, 3, 2);
 	initGroundTiles();
 	printf("ege\n");
-	newLetterT();
+	newLetterS();
 	printf("egege\n");
 	populatePoints();
 	printf("egegege\n");
@@ -279,7 +281,7 @@ init()
 
 	// Create and initialize a buffer object
 
-	GLuint buffer;
+	
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals) + sizeof(texture), NULL, GL_STATIC_DRAW);
@@ -381,14 +383,17 @@ display(void)
 	*/
 
 	for (int i = 0; i < cubeNumber; i++) {
-		model_views[cubeNumber - 1] = ((Translate(-movePos[cubeNumber-1]) * //modelview of the object
+		model_views[i] = ((Translate(-movePos[i]) * //modelview of the object
 			RotateX(Theta[Xaxis]) *
 			RotateY(Theta[Yaxis]) *
 			RotateZ(Theta[Zaxis]) *
 			Scale(Beta, Beta, Beta)));
+
 		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[i]);
-		glDrawArrays(GL_TRIANGLES, 6 , NumVertices);
+		glDrawArrays(GL_TRIANGLES, 6 + 36*i, 36);
+		
 	}
+	
 	glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_view_floor);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glutSwapBuffers();
@@ -889,8 +894,14 @@ void timer(int p)
 			gameSpace[x2][y2][z2] = cubeNumber - 2;
 			gameSpace[x3][y3][z3] = cubeNumber - 3;
 			gameSpace[x4][y4][z4] = cubeNumber - 4;
-			
+
 			newLetterT();
+
+			//glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals) + sizeof(texture), NULL, GL_STATIC_DRAW);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(points), points);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points), sizeof(colors), colors);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), sizeof(normals), normals);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals), sizeof(texture), texture);
 		}
 	score++;
 	if (score == 99999) {
@@ -900,8 +911,37 @@ void timer(int p)
 
 	glutTimerFunc(100, timer, 0);
 }
+//-----------------------------------------------------menu actions.
+void quit(int value)
+{
+	switch (value)
+	{
+	case 0:
+		exit(EXIT_SUCCESS);
+		break;
+	}
+}
 
+void musicMenuAction(int i)
+{
+	switch (i)
+	{
+	case 0:
+		PlaySound("classic.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	case 1:
+		PlaySound("traditional.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	case 2:
+		PlaySound("techno.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	case 3:
+		PlaySound("hiphop.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+		break;
+	}
+}
 
+void createMenu();
 //----------------------------------------------------------------------------
 
 int
@@ -914,7 +954,8 @@ main(int argc, char **argv)
 	glewExperimental = GL_TRUE;
 	glewInit();
 	init();
-	//PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	createMenu();
+	//PlaySound("classic.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	glutTimerFunc(5, timer, 0);
 
 	glutDisplayFunc(display); // set display callback function
@@ -924,4 +965,18 @@ main(int argc, char **argv)
 
 	glutMainLoop();
 	return 0;
+}
+
+void createMenu()
+{
+	int musicMenu = glutCreateMenu(musicMenuAction); // object type.
+	glutAddMenuEntry("Classic", 0);
+	glutAddMenuEntry("Traditional", 1);
+	glutAddMenuEntry("Techno", 2);
+	glutAddMenuEntry("HipHop", 3);
+
+	glutCreateMenu(quit);
+	glutAddSubMenu("Select Music", musicMenu);
+	glutAddMenuEntry("Quit", 0);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
