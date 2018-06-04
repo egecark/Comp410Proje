@@ -577,29 +577,41 @@ keyboard(unsigned char key, int x, int y)
 	}
 }
 
-void processSpecialKeys(int key, int x, int y) { //controls the speed
+void processSpecialKeys(int key, int x, int y) {
+	bool if1 = true;
+	bool if2 = true;
+	bool if3 = true;
+	bool if4 = true;
+	bool if5 = true;
+	bool if6 = true;
+	bool if7 = true;
+	bool if8 = true;
+	bool if9 = true;
+	bool if10 = true;
+	bool if11 = true;
+	bool if12 = true;
+	bool if13 = true;
+	bool if14 = true;
+	bool if15 = true;
+	bool if16 = true;
+	int xLast1;
+	int yLast1;
+	int zLast1;
 
-	switch (key) {
-		int xLast1;
-		int yLast1;
-		int zLast1;
+	int xLast2;
+	int yLast2;
+	int zLast2;
 
-		int xLast2;
-		int yLast2;
-		int zLast2;
+	int xLast3;
+	int yLast3;
+	int zLast3;
 
-		int xLast3;
-		int yLast3;
-		int zLast3;
+	int xLast4;
+	int yLast4;
+	int zLast4;
+	//controls the speed
 
-		int xLast4;
-		int yLast4;
-		int zLast4;
-
-		bool if1;
-		bool if2;
-		bool if3;
-		bool if4;
+	switch (key) {	
 	case GLUT_KEY_UP:
 		xLast1 = xGrid[cubeNumber - 1];
 		yLast1 = yGrid[cubeNumber - 1];
@@ -684,16 +696,16 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 		yLast4 = yGrid[cubeNumber - 4];
 		zLast4 = zGrid[cubeNumber - 4];
 
-		if1 = gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 3 ||
+		if5 = gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 2 || gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 3 ||
 			gameSpace[xLast1][yLast1][zLast1 + 1] == cubeNumber - 4 || gameSpace[xLast1][yLast1][zLast1 + 1] == 0;
 
-		if2 = gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 1 || gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 3 ||
+		if6 = gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 1 || gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 3 ||
 			gameSpace[xLast2][yLast2][zLast2 + 1] == cubeNumber - 4 || gameSpace[xLast2][yLast2][zLast2 + 1] == 0;
 
-		if3 = gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 1 || gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 2 ||
+		if7 = gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 1 || gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 2 ||
 			gameSpace[xLast3][yLast3][zLast3 + 1] == cubeNumber - 4 || gameSpace[xLast3][yLast3][zLast3 + 1] == 0;
 
-		if4 = gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 1 || gameSpace[xLast4][yLast4][zLast4 + 1] == cubeNumber - 2 ||
+		if8 = gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 1 || gameSpace[xLast4][yLast4][zLast4 + 1] == cubeNumber - 2 ||
 			gameSpace[xLast4][yLast4][zLast1 + 4] == cubeNumber - 3 || gameSpace[xLast4][yLast4][zLast4 + 1] == 0;
 
 		if (if1 && if2 && if3 && if4) {
@@ -753,16 +765,16 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 		yLast4 = yGrid[cubeNumber - 4];
 		zLast4 = zGrid[cubeNumber - 4];
 
-		if1 = gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 ||
+		if9 = gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 ||
 			gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 + 1][yLast1][zLast1] == 0;
 
-		if2 = gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 3 ||
+		if10 = gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 3 ||
 			gameSpace[xLast2 + 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 + 1][yLast2][zLast2] == 0;
 
-		if3 = gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 + 3][yLast3][zLast3] == cubeNumber - 2 ||
+		if11 = gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 + 3][yLast3][zLast3] == cubeNumber - 2 ||
 			gameSpace[xLast3 + 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 + 3][yLast3][zLast3] == 0;
 
-		if4 = gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 2 ||
+		if12 = gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 2 ||
 			gameSpace[xLast4 + 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 + 1][yLast4][zLast4] == 0;
 		if (if1 && if2 && if3 && if4) {
 			//if (gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 3 || gameSpace[xLast1 + 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 + 1][yLast1][zLast1] == 0) {
@@ -819,16 +831,16 @@ void processSpecialKeys(int key, int x, int y) { //controls the speed
 		yLast4 = yGrid[cubeNumber - 4];
 		zLast4 = zGrid[cubeNumber - 4];
 
-		if1 = gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 3 ||
+		if13 = gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 3 ||
 					gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 - 1][yLast1][zLast1] == 0;
 
-		if2 = gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 3 ||
+		if14 = gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 1 || gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 3 ||
 					gameSpace[xLast2 - 1][yLast2][zLast2] == cubeNumber - 4 || gameSpace[xLast2 - 1][yLast2][zLast2] == 0;
 
-		if3 = gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 - 3][yLast3][zLast3] == cubeNumber - 2 ||
+		if15 = gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 1 || gameSpace[xLast1 - 3][yLast3][zLast3] == cubeNumber - 2 ||
 			gameSpace[xLast3 - 1][yLast3][zLast3] == cubeNumber - 4 || gameSpace[xLast1 - 3][yLast3][zLast3] == 0;
 
-		if4 = gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 2 ||
+		if16 = gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 1 || gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 2 ||
 			gameSpace[xLast4 - 1][yLast4][zLast4] == cubeNumber - 3 || gameSpace[xLast4 - 1][yLast4][zLast4] == 0;
 		if (if1 && if2 && if3 && if4) {
 			//if (gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 2 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 3 || gameSpace[xLast1 - 1][yLast1][zLast1] == cubeNumber - 4 || gameSpace[xLast1 - 1][yLast1][zLast1] == 0) {
@@ -1025,7 +1037,7 @@ void timer(int p)
 	}
 	glutPostRedisplay();
 
-	glutTimerFunc(1000, timer, 0);
+	glutTimerFunc(500, timer, 0);
 }
 //-----------------------------------------------------menu actions.
 void quit(int value)

@@ -1,0 +1,272 @@
+﻿1>------ Build started: Project: openGL, Configuration: Debug x64 ------
+1>main.cpp
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\angel.h(63): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(756): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(757): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(758): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(779): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(781): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(784): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\mat.h(800): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(6): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(12): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(13): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(14): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(14): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(15): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(15): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(16): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(17): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(18): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(18): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(19): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(19): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(23): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(24): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(25): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(25): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(26): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(27): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(28): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(29): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(30): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(34): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(35): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(36): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(36): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(37): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(37): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(38): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(39): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(40): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(40): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(41): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(41): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(45): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(46): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(47): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(47): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(48): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(48): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(49): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(50): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(51): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(51): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(52): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(52): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(57): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(58): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(59): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(60): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(61): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(62): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(63): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(67): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(68): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(69): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(70): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(71): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(72): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(73): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(74): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(78): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(79): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(80): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(80): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(81): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(81): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(82): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(83): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(84): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(84): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(85): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(85): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(89): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(90): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(91): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(91): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(92): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(92): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(93): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(94): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(95): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(95): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(96): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(96): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(100): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(100): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(101): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(101): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(102): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(102): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(103): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(103): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(104): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(105): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(106): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(107): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(111): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(111): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(112): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(112): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(113): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(113): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(114): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(114): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(115): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(116): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(117): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\tetrisobjects.h(118): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(42): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(92): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(93): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(94): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(95): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(96): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(97): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(98): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(99): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(121): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(172): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(202): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(203): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(205): warning C4244: 'argument': conversion from 'int' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(206): warning C4244: 'argument': conversion from 'int' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(207): warning C4244: 'argument': conversion from 'int' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(260): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(439): warning C4244: 'argument': conversion from 'double' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(438): warning C4244: 'argument': conversion from 'double' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(446): warning C4244: 'argument': conversion from 'double' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(445): warning C4244: 'argument': conversion from 'double' to 'const GLfloat', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(454): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(456): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(458): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(460): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(462): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(468): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(470): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(472): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(476): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(478): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(480): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(482): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(503): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(505): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(514): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(525): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(532): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(538): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(548): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(558): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(568): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(604): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(605): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(606): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(608): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(609): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(610): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(612): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(613): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(614): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(616): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(617): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(618): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(634): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(643): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(652): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(661): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(671): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(672): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(673): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(675): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(676): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(677): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(679): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(680): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(681): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(683): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(684): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(685): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(703): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(712): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(721): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(730): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(740): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(741): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(742): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(744): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(745): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(746): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(748): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(749): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(750): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(752): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(753): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(754): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(769): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(778): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(787): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(796): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(806): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(807): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(808): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(810): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(811): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(812): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(814): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(815): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(816): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(818): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(819): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(820): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(835): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(844): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(853): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(862): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(906): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(907): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(908): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(911): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(912): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(913): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(916): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(917): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(918): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(921): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(922): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(923): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(942): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(943): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(944): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(946): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(953): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(954): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(955): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(957): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(964): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(965): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(966): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(968): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(975): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(976): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(977): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(979): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(993): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(994): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(995): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(997): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(998): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(999): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(1001): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(1002): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(1003): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(1005): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(1006): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>c:\users\mogeturk\source\repos\comp410proje\opengl\main.cpp(1007): warning C4244: 'initializing': conversion from 'GLfloat' to 'int', possible loss of data
+1>openGL.vcxproj -> C:\Users\mogeturk\source\repos\Comp410Proje\x64\Debug\openGL.exe
+1>Done building project "openGL.vcxproj".
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
