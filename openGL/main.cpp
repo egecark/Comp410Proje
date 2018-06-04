@@ -185,8 +185,6 @@ void populatePoints() {
 }
 
 
-
-
 // generate 12 triangles: 36 vertices and 36 colors
 void
 colorcube(point4 v[8], int x, int y, int z)
@@ -366,8 +364,9 @@ display(void)
 	initScoreBoard();
 	initFailureMessage();
 
-	failureMessageDisplay();
+	//failureMessageDisplay();
 
+	/*
 	int scoreTemp = score;
 	int ch = scoreTemp % 10;
 	scoreTemp = scoreTemp / 10;
@@ -379,6 +378,7 @@ display(void)
 	ch4 = 48 + (scoreTemp) % 10;
 	scoreTemp = scoreTemp / 10;
 	ch5 = 48 + (scoreTemp) % 10;
+	*/
 
 	for (int i = 0; i < cubeNumber; i++) {
 		model_views[cubeNumber - 1] = ((Translate(-movePos[cubeNumber-1]) * //modelview of the object
