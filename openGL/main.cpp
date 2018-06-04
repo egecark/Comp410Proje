@@ -12,6 +12,8 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include "TetrisObjects.h"
+#include <time.h>
+#include <stdlib.h>
 
 GLuint buffer;
 using namespace std;
@@ -204,7 +206,7 @@ colorcube(point4 v[8], int x, int y, int z)
 	yGrid.push_back(y);
 	zGrid.push_back(z);
 	cubeNumber++;
-	movePos[cubeNumber - 1].y += yOffset;
+	//movePos[cubeNumber - 1].y += yOffset;
 	gameSpace[x][y][z] = cubeNumber;
 	model_views.push_back(NULL);
 }
@@ -219,7 +221,7 @@ void newStick() {
 	newBlock(vertices_pos1X, 4, 18, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
 	newBlock(vertices_neg2X, 7, 18, 5);
-	groundHeight = 17;
+	groundHeight = 19;
 }
 
 void newLetterT() {
@@ -227,7 +229,7 @@ void newLetterT() {
 	newBlock(vertices_pos1X, 4, 18, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
 	newBlock(vertices_pos1Y, 5, 19, 5);
-	groundHeight = 18;
+	groundHeight = 20;
 }
 
 void newLetterS() {
@@ -235,7 +237,7 @@ void newLetterS() {
 	newBlock(vertices_pos1X1Y, 4, 19, 5);
 	newBlock(vertices_pos1Y, 5, 19, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
-	groundHeight = 17;
+	groundHeight = 19;
 }
 
 void newLetterZ() {
@@ -243,7 +245,7 @@ void newLetterZ() {
 	newBlock(vertices_neg1X1Y, 6, 17, 5);
 	newBlock(vertices_pos1Y, 5, 19, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
-	groundHeight = 16;
+	groundHeight = 18;
 }
 
 void newLetterL() {
@@ -251,7 +253,30 @@ void newLetterL() {
 	newBlock(vertices_pos1X1Y, 4, 19, 5);
 	newBlock(vertices_pos1X, 4, 18, 5);
 	newBlock(vertices_neg1X, 6, 18, 5);
-	groundHeight = 17;
+	groundHeight = 19;
+}
+
+void createRandomObject() {
+	srand(time(NULL));
+	int r = rand() % ((5 - 1) + 1) + 1;
+	printf("%d\n", r);
+	switch (r) {
+	case 1:
+		newStick();
+		break;
+	case 2:
+		newLetterZ();
+		break;
+	case 3:
+		newLetterS();
+		break;
+	case 4:
+		newLetterT();
+		break;
+	case 5:
+		newLetterL();
+		break;
+	}
 }
 
 //----------------------------------------------------------------------------
@@ -265,11 +290,7 @@ init()
 {
 	floorQuad(1, 0, 3, 2);
 	initGroundTiles();
-	printf("ege\n");
-	newLetterS();
-	printf("egege\n");
-	populatePoints();
-	printf("egegege\n");
+	newLetterZ();
 	
 	ch1 = ch2 = ch3 = ch4 = ch5 = 48;
 	chY = chO = chU = chSpace = chL = chS = chE = 0;
@@ -383,14 +404,14 @@ display(void)
 	*/
 
 	for (int i = 0; i < cubeNumber; i++) {
-		model_views[i] = ((Translate(-movePos[i]) * //modelview of the object
+		model_views[cubeNumber - 1] = ((Translate(-movePos[i]) * //modelview of the object
 			RotateX(Theta[Xaxis]) *
 			RotateY(Theta[Yaxis]) *
 			RotateZ(Theta[Zaxis]) *
 			Scale(Beta, Beta, Beta)));
 
-		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[i]);
-		glDrawArrays(GL_TRIANGLES, 6 + 36*i, 36);
+		glUniformMatrix4fv(ModelView, 1, GL_TRUE, model_views[cubeNumber -1]);
+		glDrawArrays(GL_TRIANGLES, 6+36*i, 36);
 		
 	}
 	
@@ -685,7 +706,7 @@ void timer(int p)
 			gameSpace[xLast1][yLast1][zLast1] = 0;
 			movePos[cubeNumber - 1].y += 0.6;
 			yGrid[cubeNumber - 1] -= 1;
-			printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
+			//printf("%i, %i, %i\n", xLast1, yLast1, zLast1);
 			yLast1 -= 1;
 			gameSpace[xLast1][yLast1][zLast1] = cubeNumber;
 			//printf("%i\n", gameSpace[xLast1][yLast1][zLast1]);
@@ -696,7 +717,7 @@ void timer(int p)
 			gameSpace[xLast2][yLast2][zLast2] = 0;
 			movePos[cubeNumber - 2].y += 0.6;
 			yGrid[cubeNumber - 2] -= 1;
-			printf("%i, %i, %i\n", xLast2, yLast2, zLast2);
+			//printf("%i, %i, %i\n", xLast2, yLast2, zLast2);
 			yLast2 -= 1;
 			gameSpace[xLast2][yLast2][zLast2] = cubeNumber-1;
 			//printf("%i\n", gameSpace[xLast2][yLast2][zLast2]);
@@ -707,7 +728,7 @@ void timer(int p)
 			gameSpace[xLast3][yLast3][zLast3] = 0;
 			movePos[cubeNumber - 3].y += 0.6;
 			yGrid[cubeNumber - 3] -= 1;
-			printf("%i, %i, %i\n", xLast3, yLast3, zLast3);
+			//printf("%i, %i, %i\n", xLast3, yLast3, zLast3);
 			yLast3 -= 1;
 			gameSpace[xLast3][yLast3][zLast3] = cubeNumber-2;
 			//printf("%i\n", gameSpace[xLast3][yLast3][zLast3]);
@@ -718,7 +739,7 @@ void timer(int p)
 			gameSpace[xLast4][yLast4][zLast4] = 0;
 			movePos[cubeNumber - 4].y += 0.6;
 			yGrid[cubeNumber - 4] -= 1;
-			printf("%i, %i, %i\n", xLast4, yLast4, zLast4);
+			//printf("%i, %i, %i\n", xLast4, yLast4, zLast4);
 			yLast4 -= 1;
 			gameSpace[xLast4][yLast4][zLast4] = cubeNumber-3;
 			//printf("%i\n", gameSpace[xLast4][yLast4][zLast4]);
@@ -751,9 +772,9 @@ void timer(int p)
 			gameSpace[x3][y3][z3] = cubeNumber - 3;
 			gameSpace[x4][y4][z4] = cubeNumber - 4;
 
-			newLetterT();
+			createRandomObject();
 
-			//glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals) + sizeof(texture), NULL, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals) + sizeof(texture), NULL, GL_STATIC_DRAW);
 			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(points), points);
 			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points), sizeof(colors), colors);
 			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), sizeof(normals), normals);
